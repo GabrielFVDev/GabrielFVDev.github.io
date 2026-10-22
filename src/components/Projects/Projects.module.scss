@@ -1,0 +1,426 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.wrap {
+  @include container;
+
+  @include mobile {
+    padding-inline: 0;
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include mobile {
+    gap: 16px;
+  }
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+
+  @include mobile {
+    padding: 0 $gutter-mobile;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+}
+
+.eyebrow {
+  @include eyebrow(13px);
+
+  @include mobile {
+    font-size: 12px;
+  }
+}
+
+.title {
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+
+  @include mobile {
+    font-size: 44px;
+  }
+}
+
+// ---------- Projeto em destaque ----------
+
+.featuredWrap {
+  @include mobile {
+    padding: 0 $gutter-mobile;
+  }
+}
+
+.featured {
+  position: relative;
+  overflow: hidden;
+  background: var(--feat-bg);
+  color: var(--feat-fg);
+  border-radius: $radius-feature;
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  transition:
+    background-color 0.4s,
+    color 0.4s;
+  --focus: var(--feat-fg);
+
+  @include mobile {
+    border-radius: $radius-card;
+    padding: 10px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+}
+
+// Luz de 420px que segue o mouse
+.spot {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--spot), transparent 65%);
+
+  @include can-hover {
+    .featured:hover & {
+      opacity: 1;
+    }
+  }
+}
+
+.featuredText {
+  position: relative;
+  flex: 1 1 380px;
+  padding: clamp(16px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+
+  @include mobile {
+    flex: none;
+    padding: 20px 12px 12px;
+    justify-content: flex-start;
+    gap: 14px;
+  }
+}
+
+.featuredBody {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  @include mobile {
+    gap: 14px;
+  }
+}
+
+// O selo gira com um pequeno pulo no hover
+.badge {
+  align-self: flex-start;
+  display: inline-block;
+  background: var(--accent);
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 6px 12px;
+  @include mono(12px);
+  transform: rotate(-2deg);
+  transition: transform 0.45s $ease-pop;
+
+  @include can-hover {
+    .featured:hover & {
+      transform: rotate(4deg) scale(1.06);
+    }
+  }
+
+  @include mobile {
+    padding: 5px 11px;
+    font-size: 11px;
+  }
+}
+
+.featuredName {
+  font-size: clamp(40px, 4.4vw, 60px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+
+  @include mobile {
+    font-size: 40px;
+  }
+}
+
+.featuredDesc {
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--feat-muted);
+
+  @include mobile {
+    font-size: 16px;
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.featChip {
+  background: var(--feat-chip);
+  border-radius: 999px;
+  padding: 6px 12px;
+  @include mono(12px);
+  color: var(--feat-chipfg);
+}
+
+.status {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  @include mono(12px);
+  color: var(--feat-muted);
+}
+
+.featuredMedia {
+  position: relative;
+  flex: 1.6 1 460px;
+  min-height: 480px;
+  border-radius: 18px;
+
+  @include mobile {
+    order: -1;
+    flex: none;
+    min-height: 0;
+    height: 260px;
+    border-radius: 16px;
+  }
+}
+
+.shots {
+  position: absolute;
+  inset: 0;
+  background: var(--feat-media);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 40px 32px;
+  overflow: hidden;
+
+  @include mobile {
+    align-items: flex-end;
+    padding: 24px 0 0;
+  }
+}
+
+// Duas telas do app, levemente desencontradas
+.shot {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-height: 440px;
+  aspect-ratio: 720 / 1558;
+  object-fit: cover;
+  border-radius: 26px;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.55);
+
+  &:first-child {
+    transform: translateY(-14px);
+  }
+
+  &:last-child {
+    transform: translateY(14px);
+  }
+
+  // No celular: uma tela só, espiando de baixo
+  @include mobile {
+    &:first-child {
+      width: 62%;
+      max-height: none;
+      aspect-ratio: auto;
+      object-position: top;
+      border-radius: 22px 22px 0 0;
+      box-shadow: 0 -10px 40px -20px rgba(0, 0, 0, 0.5);
+      transform: none;
+    }
+
+    &:last-child {
+      display: none;
+    }
+  }
+}
+
+// ---------- Mais projetos ----------
+
+.moreHead {
+  display: none;
+
+  @include mobile {
+    padding: 12px $gutter-mobile 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.moreTitle {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.swipe {
+  @include mono(12px);
+  color: var(--muted2);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  // No celular vira um trilho que desliza para o lado
+  @include mobile {
+    flex-wrap: nowrap;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 $gutter-mobile;
+    padding: 0 $gutter-mobile 8px;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.card {
+  flex: 1 1 300px;
+  background: var(--card);
+  border-radius: $radius-card;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+
+  @include mobile {
+    flex: 0 0 286px;
+    scroll-snap-align: start;
+    border-radius: 22px;
+    padding: 10px;
+  }
+}
+
+.cardMedia {
+  position: relative;
+  height: 200px;
+  border-radius: 16px;
+
+  @include mobile {
+    height: 170px;
+    border-radius: 14px;
+  }
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  background: var(--inset);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include mono(12px);
+  color: var(--muted2);
+
+  @include mobile {
+    font-size: 11px;
+  }
+}
+
+.cardBody {
+  padding: 20px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
+
+  @include mobile {
+    padding: 16px 8px 8px;
+    gap: 8px;
+  }
+}
+
+.tag {
+  @include mono(12px);
+  color: var(--muted2);
+
+  @include mobile {
+    font-size: 11px;
+  }
+}
+
+.cardName {
+  font-size: 24px;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+
+  @include mobile {
+    font-size: 21px;
+  }
+}
+
+.cardDesc {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted);
+
+  @include mobile {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+.cardFooter {
+  margin-top: auto;
+  padding-top: 8px;
+
+  @include mobile {
+    padding-top: 0;
+  }
+}
+
+.codeLink {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent-text);
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.private {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  @include mono(12px);
+  color: var(--muted2);
+}

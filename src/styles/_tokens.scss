@@ -1,0 +1,21 @@
+// Valores fixos na compilação. As cores ficam em CSS vars (global.scss)
+// porque o tema troca em tempo de execução.
+
+$bp-mobile: 767px;
+
+$ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+$ease-theme: cubic-bezier(0.65, 0, 0.35, 1);
+$ease-pop: cubic-bezier(0.3, 1.7, 0.5, 1);
+$ease-icon: cubic-bezier(0.3, 1.6, 0.5, 1);
+
+$font-sans: 'Inter Tight', system-ui, sans-serif;
+$font-mono: 'Geist Mono', ui-monospace, monospace;
+
+$radius-contact: 32px;
+$radius-feature: 28px;
+$radius-card: 24px;
+$radius-mini: 20px;
+
+$container: 1280px;
+$gutter: clamp(16px, 4vw, 48px);
+$gutter-mobile: 20px;

@@ -1,0 +1,50 @@
+@use 'tokens' as *;
+
+@mixin mobile {
+  @media (max-width: $bp-mobile) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $bp-mobile + 1) {
+    @content;
+  }
+}
+
+// Hover só em quem tem mouse; no toque o feedback é o :active do .tap
+@mixin can-hover {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@mixin touch {
+  @media (hover: none) {
+    @content;
+  }
+}
+
+// Animações ligadas à rolagem: sem suporte (Firefox), a página aparece pronta
+@mixin scroll-driven {
+  @supports (animation-timeline: view()) {
+    @content;
+  }
+}
+
+@mixin mono($size: 12px) {
+  font-family: $font-mono;
+  font-size: $size;
+}
+
+@mixin eyebrow($size: 12px) {
+  @include mono($size);
+  color: var(--muted2);
+  text-transform: uppercase;
+}
+
+@mixin container {
+  max-width: $container;
+  margin: 0 auto;
+  padding-inline: $gutter;
+}

@@ -1,0 +1,72 @@
+<!doctype html>
+<!-- Gerador dos ícones em public/ (favicon-512.png, apple-touch-icon.png, favicon-32.png),
+     a partir do artboard Favicon do design. Abra no navegador e clique em cada link para baixar.
+     Desenha em canvas para os cantos arredondados saírem transparentes. -->
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>Ícones</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700&display=swap" />
+    <style>
+      body {
+        margin: 32px;
+        font-family: system-ui, sans-serif;
+        display: flex;
+        gap: 24px;
+        align-items: flex-end;
+      }
+      figure {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const icons = [
+        { size: 512, file: 'favicon-512.png', radius: 112 },
+        { size: 180, file: 'apple-touch-icon.png', radius: 0 }, // o iOS arredonda sozinho
+        { size: 32, file: 'favicon-32.png', radius: 112 },
+      ]
+
+      document.fonts.load('700 360px "Inter Tight"').then(() => {
+        for (const icon of icons) {
+          const canvas = document.createElement('canvas')
+          canvas.width = icon.size
+          canvas.height = icon.size
+          const ctx = canvas.getContext('2d')
+          ctx.scale(icon.size / 512, icon.size / 512)
+
+          ctx.fillStyle = '#111113'
+          ctx.beginPath()
+          ctx.roundRect(0, 0, 512, 512, icon.radius)
+          ctx.fill()
+
+          // "g." em Inter Tight 700, 360px, letter-spacing -0.06em, subido 34px como no artboard
+          const tracking = -21.6
+          ctx.font = '700 360px "Inter Tight"'
+          ctx.letterSpacing = `${tracking}px`
+          const g = ctx.measureText('g').width
+          const dot = ctx.measureText('.').width
+          const x = (512 - (g + dot + tracking)) / 2
+          const y = 256 + 360 * 0.36 - 34
+          ctx.fillStyle = '#FFFFFF'
+          ctx.fillText('g', x, y)
+          ctx.fillStyle = '#2544F5'
+          ctx.fillText('.', x + g + tracking, y)
+
+          const link = document.createElement('a')
+          link.href = canvas.toDataURL('image/png')
+          link.download = icon.file
+          link.textContent = icon.file
+          const figure = document.createElement('figure')
+          figure.append(canvas, link)
+          document.body.append(figure)
+        }
+      })
+    </script>
+  </body>
+</html>

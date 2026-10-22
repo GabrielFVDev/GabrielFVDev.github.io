@@ -1,0 +1,293 @@
+// Classes de animação compartilhadas, portadas do design (D4 · Final / Celular).
+// Ficam globais para valerem em qualquer componente pelo nome.
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+@keyframes rise {
+  from {
+    translate: 0 105%;
+  }
+  to {
+    translate: none;
+  }
+}
+
+@keyframes blurIn {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    translate: 0 14px;
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    translate: none;
+  }
+}
+
+@keyframes ping {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+@keyframes tilt {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(14deg);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    scale: 0.88;
+    opacity: 0.35;
+    border-radius: 56px;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+    border-radius: $radius-feature;
+  }
+}
+
+@keyframes zoomInSm {
+  from {
+    scale: 0.9;
+    opacity: 0.35;
+    border-radius: 40px;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+    border-radius: $radius-card;
+  }
+}
+
+@keyframes blurUp {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    translate: 0 56px;
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    translate: none;
+  }
+}
+
+@keyframes blurUpSm {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    translate: 0 40px;
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    translate: none;
+  }
+}
+
+// Entrada: roda uma vez, em sequência, quando a página abre
+.mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+
+  > span {
+    display: block;
+    animation: rise 1s $ease both;
+  }
+
+  &.l2 > span {
+    animation-delay: 0.12s;
+  }
+}
+
+.fu {
+  animation: blurIn 0.9s $ease both;
+}
+
+.d1 {
+  animation-delay: 0.05s;
+}
+.d2 {
+  animation-delay: 0.4s;
+}
+.d3 {
+  animation-delay: 0.55s;
+}
+.d4 {
+  animation-delay: 0.68s;
+}
+.d5 {
+  animation-delay: 0.8s;
+}
+
+// Contínuas
+.dot {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: currentColor;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background: currentColor;
+    animation: ping 1.9s ease-out infinite;
+  }
+}
+
+.arr-bob {
+  animation: bob 2.2s ease-in-out infinite;
+}
+
+.wave {
+  display: inline-block;
+  transform-origin: 50% 90%;
+  animation: tilt 2.6s ease-in-out infinite;
+}
+
+// Hover e toque
+.btn {
+  transition:
+    transform 0.22s $ease,
+    box-shadow 0.22s;
+
+  @include can-hover {
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px -12px var(--shadow);
+    }
+    &:active {
+      transform: translateY(0) scale(0.98);
+    }
+  }
+}
+
+.arr-diag {
+  transition: transform 0.25s $ease;
+}
+
+@include can-hover {
+  .btn:hover .arr-diag,
+  .lk:hover .arr-diag {
+    transform: translate(3px, -3px);
+  }
+}
+
+.lift {
+  transition:
+    transform 0.4s $ease,
+    box-shadow 0.4s;
+
+  &:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 44px -22px var(--shadow);
+  }
+
+  @include can-hover {
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 44px -22px var(--shadow);
+    }
+  }
+}
+
+.media {
+  overflow: hidden;
+
+  > * {
+    transition: transform 0.9s $ease;
+  }
+}
+
+@include can-hover {
+  .lift:hover .media > *,
+  .feat:hover .media > * {
+    transform: scale(1.04);
+  }
+}
+
+.chip {
+  transition: transform 0.2s $ease;
+
+  @include can-hover {
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// No celular não existe hover: tudo que é clicável encolhe ao tocar
+.tap {
+  @include touch {
+    transition: transform 0.18s $ease;
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
+}
+
+// Ligadas à rolagem
+@include scroll-driven {
+  .zoom {
+    animation: zoomIn linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 38%;
+
+    @include mobile {
+      animation-name: zoomInSm;
+      animation-range: entry 0% cover 35%;
+    }
+  }
+
+  .up {
+    animation: blurUp linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 70%;
+
+    @include mobile {
+      animation-name: blurUpSm;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .dot::after {
+    display: none;
+  }
+}

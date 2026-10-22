@@ -1,0 +1,67 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+// PT | EN
+.seg {
+  display: inline-flex;
+  background: var(--card);
+  border-radius: 999px;
+  padding: 2px;
+}
+
+.segButton {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-family: $font-mono;
+  font-size: 13px;
+  font-weight: 500;
+  min-width: 44px;
+  min-height: 40px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.segOn {
+  background: var(--ink);
+  color: var(--on-ink);
+}
+
+// Versão do painel do celular: alvos maiores para o polegar
+.large {
+  padding: 3px;
+
+  .segButton {
+    font-size: 14px;
+    min-width: 64px;
+    min-height: 44px;
+  }
+}
+
+// Botão de tema (sol/lua)
+.iconButton {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+
+  svg {
+    transition: transform 0.5s $ease-icon;
+  }
+
+  @include can-hover {
+    &:hover svg {
+      transform: rotate(30deg);
+    }
+  }
+}

@@ -1,0 +1,141 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+@use 'motion';
+
+:root {
+  --accent: #2544f5;
+  --bg: #f5f5f3;
+  --card: #ffffff;
+  --inset: #ededea;
+  --soft: #f5f5f3;
+  --text: #111113;
+  --text2: #2a2a30;
+  --muted: #4a4a52;
+  --muted2: #5c5c63;
+  --faint: #c4c4c8;
+  --ink: #111113;
+  --on-ink: #ffffff;
+  --glass: rgba(245, 245, 243, 0.72);
+  --sheet: rgba(245, 245, 243, 0.94);
+  --shadow: rgba(17, 17, 19, 0.35);
+  --accent-text: var(--accent);
+  --focus: var(--accent);
+
+  // O projeto em destaque é escuro no tema claro e claro no escuro
+  --feat-bg: #111113;
+  --feat-fg: #ffffff;
+  --feat-muted: #c9c9cf;
+  --feat-chip: #26262b;
+  --feat-chipfg: #e4e4e7;
+  --feat-media: #1e1e23;
+  --feat-mediafg: #a1a1aa;
+  --spot: rgba(255, 255, 255, 0.08);
+
+  color-scheme: light;
+
+  @include mobile {
+    --glass: rgba(245, 245, 243, 0.78);
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #0b0b0d;
+  --card: #161619;
+  --inset: #202024;
+  --soft: #222226;
+  --text: #f4f4f5;
+  --text2: #d4d4d8;
+  --muted: #b4b4bb;
+  --muted2: #9a9aa2;
+  --faint: #3a3a41;
+  --ink: #f4f4f5;
+  --on-ink: #0b0b0d;
+  --glass: rgba(11, 11, 13, 0.72);
+  --sheet: rgba(11, 11, 13, 0.94);
+  --shadow: rgba(0, 0, 0, 0.75);
+  // color-mix(#2544F5 55%, #FFF): azul mais claro para manter o contraste do texto
+  --accent-text: #8798fa;
+  --focus: var(--accent-text);
+
+  --feat-bg: #f2f2f0;
+  --feat-fg: #111113;
+  --feat-muted: #4a4a52;
+  --feat-chip: #e2e2de;
+  --feat-chipfg: #2a2a30;
+  --feat-media: #e4e4e0;
+  --feat-mediafg: #5c5c63;
+  --spot: rgba(0, 0, 0, 0.05);
+
+  color-scheme: dark;
+
+  @include mobile {
+    --glass: rgba(11, 11, 13, 0.78);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: $font-sans;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:
+    background-color 0.4s,
+    color 0.4s;
+}
+
+a {
+  color: var(--text);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+}
+
+:where(a, button):focus-visible {
+  outline: 2.5px solid var(--focus);
+  outline-offset: 3px;
+}
+
+// O destino da rolagem recebe foco por script; o contorno só aparece no teclado
+section:focus {
+  outline: none;
+}
+
+// Troca de tema: o tema novo se espalha num círculo a partir do botão
+@keyframes vtReveal {
+  from {
+    clip-path: circle(0 at var(--vx, 50%) var(--vy, 0));
+  }
+  to {
+    clip-path: circle(150vmax at var(--vx, 50%) var(--vy, 0));
+  }
+}
+
+html.vt-theme::view-transition-old(root) {
+  animation: none;
+}
+
+html.vt-theme::view-transition-new(root) {
+  animation: vtReveal 0.75s $ease-theme;
+}

@@ -1,0 +1,245 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+// O nome se despede ao sair da tela: encolhe, desfoca e quase some
+@keyframes heroOut {
+  to {
+    opacity: 0.15;
+    scale: 0.94;
+    translate: 0 -40px;
+    filter: blur(4px);
+  }
+}
+
+@keyframes heroOutSm {
+  to {
+    opacity: 0.15;
+    scale: 0.94;
+    translate: 0 -30px;
+    filter: blur(4px);
+  }
+}
+
+.wrap {
+  @include container;
+
+  @include mobile {
+    padding-inline: $gutter-mobile;
+  }
+}
+
+.hero {
+  padding: 88px 0 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+
+  @include mobile {
+    padding: 36px 0 72px;
+    gap: 28px;
+  }
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  border-radius: 999px;
+  padding: 8px 16px;
+  @include mono(13px);
+  color: var(--text2);
+
+  @include mobile {
+    gap: 8px;
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+}
+
+.dot {
+  color: var(--accent-text);
+}
+
+.nameOut {
+  transform-origin: left center;
+
+  @include scroll-driven {
+    animation: heroOut linear both;
+    animation-timeline: view();
+    animation-range: exit 0% exit 100%;
+
+    @include mobile {
+      animation-name: heroOutSm;
+    }
+  }
+}
+
+.name {
+  font-size: clamp(60px, 11.5vw, 168px);
+  line-height: 0.88;
+  letter-spacing: -0.055em;
+  font-weight: 600;
+
+  @include mobile {
+    font-size: 64px;
+  }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: stretch;
+
+  @include mobile {
+    flex-direction: column;
+    gap: 28px;
+  }
+}
+
+.intro {
+  flex: 3 1 520px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+
+  @include mobile {
+    flex: none;
+    gap: 28px;
+  }
+}
+
+.lead {
+  max-width: 640px;
+  font-size: clamp(22px, 2.2vw, 30px);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--text2);
+
+  strong {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  @include mobile {
+    font-size: 20px;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+  }
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  @include mobile {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.cta {
+  border-radius: 999px;
+  padding: 16px 26px;
+  min-height: 56px;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  @include mobile {
+    display: flex;
+  }
+}
+
+.ctaPrimary {
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.ctaSecondary {
+  background: var(--card);
+  font-weight: 500;
+}
+
+.facts {
+  flex: 2 1 340px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  @include mobile {
+    flex: none;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+}
+
+.fact {
+  flex: 1 1 160px;
+  background: var(--card);
+  border-radius: $radius-mini;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+
+  @include mobile {
+    flex: 1 1 0;
+    border-radius: 18px;
+    padding: 16px;
+    justify-content: flex-start;
+    gap: 14px;
+  }
+}
+
+.factLabel {
+  @include eyebrow(12px);
+
+  @include mobile {
+    font-size: 11px;
+  }
+}
+
+.factValue {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.factTitle {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+
+  @include mobile {
+    font-size: 19px;
+  }
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.factSub {
+  font-size: 14px;
+  color: var(--muted2);
+
+  @include mobile {
+    font-size: 13px;
+  }
+}

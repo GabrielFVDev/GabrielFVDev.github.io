@@ -1,0 +1,192 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+@keyframes navGlass {
+  from {
+    background-color: transparent;
+    box-shadow: 0 0 0 transparent;
+  }
+  to {
+    background-color: var(--glass);
+    box-shadow: 0 8px 24px -18px var(--shadow);
+  }
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: var(--glass);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+
+  // No desktop o vidro aparece nos primeiros 160px de rolagem
+  @include desktop {
+    @include scroll-driven {
+      animation: navGlass linear both;
+      animation-timeline: scroll();
+      animation-range: 0 160px;
+    }
+  }
+}
+
+.bar {
+  @include container;
+  padding-block: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+
+  @include mobile {
+    height: 60px;
+    padding: 0 $gutter-mobile;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  margin-right: auto;
+}
+
+.logoDot {
+  color: var(--accent-text);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  font-size: 15px;
+  font-weight: 500;
+
+  @include mobile {
+    gap: 8px;
+  }
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+// Link do menu: sublinhado cresce da esquerda; fica escuro e sublinhado na seção visível
+.link {
+  position: relative;
+  padding: 12px 14px;
+  text-decoration: none;
+  color: var(--muted);
+  transition: color 0.3s;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 8px;
+    height: 1.5px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s $ease;
+  }
+
+  &.on {
+    color: var(--text);
+
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+
+  @include can-hover {
+    &:hover {
+      color: var(--text);
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+}
+
+.lang {
+  margin-left: 8px;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.theme {
+  margin-left: 4px;
+
+  @include mobile {
+    margin-left: 0;
+  }
+}
+
+.talk {
+  margin-left: 8px;
+  background: var(--ink);
+  color: var(--on-ink);
+  border-radius: 999px;
+  padding: 10px 20px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+// ☰ que vira X
+.burger {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--card);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 0;
+
+  span {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.35s $ease;
+  }
+
+  &.open span:first-child {
+    transform: translateY(3.25px) rotate(45deg);
+  }
+
+  &.open span:last-child {
+    transform: translateY(-3.25px) rotate(-45deg);
+  }
+
+  @include mobile {
+    display: inline-flex;
+  }
+}

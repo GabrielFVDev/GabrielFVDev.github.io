@@ -1,0 +1,127 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+@keyframes sheetIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sheetOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+// Saída: o caminho inverso da entrada (os links voltam para o desfoque e sobem)
+@keyframes linkOut {
+  from {
+    opacity: 1;
+    filter: none;
+    translate: none;
+  }
+  to {
+    opacity: 0;
+    filter: blur(8px);
+    translate: 0 -10px;
+  }
+}
+
+// Painel em tela cheia abaixo do menu fixo (60px), com vidro fosco
+.sheet {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 19;
+  background: var(--sheet);
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  padding: 32px $gutter-mobile;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  animation: sheetIn 0.3s ease both;
+
+  // A cascata do painel é mais curta que a da página
+  :global(.fu) {
+    animation-duration: 0.6s;
+  }
+}
+
+// Fechando: 300ms, a mesma duração do fade de entrada. Os atrasos da cascata
+// de entrada (inline) não valem na saída: tudo sai junto.
+.closing {
+  animation: sheetOut 0.3s ease both;
+  pointer-events: none;
+
+  :global(.fu) {
+    animation: linkOut 0.25s $ease both;
+    animation-delay: 0s !important;
+  }
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.link {
+  font-size: 44px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+  padding: 6px 0;
+}
+
+.cv {
+  color: var(--muted2);
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.langRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.langLabel {
+  @include eyebrow(12px);
+}
+
+.socials {
+  display: flex;
+  gap: 10px;
+}
+
+.social {
+  flex: 1 1 0;
+  background: var(--card);
+  border-radius: 999px;
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.socialInk {
+  background: var(--ink);
+  color: var(--on-ink);
+}

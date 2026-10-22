@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Portfólio final</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#F5F5F3}
+
+.root{--bg:#F5F5F3;--card:#FFFFFF;--inset:#EDEDEA;--soft:#F5F5F3;--text:#111113;--text2:#2A2A30;--muted:#4A4A52;--muted2:#5C5C63;--faint:#C4C4C8;--ink:#111113;--on-ink:#FFFFFF;--glass:rgba(245,245,243,.72);--shadow:rgba(17,17,19,.35);--accent-text:var(--accent);--focus:var(--accent);
+--feat-bg:#111113;--feat-fg:#FFFFFF;--feat-muted:#C9C9CF;--feat-chip:#26262B;--feat-chipfg:#E4E4E7;--feat-media:#1E1E23;--feat-mediafg:#A1A1AA;--feat-btn:#FFFFFF;--feat-btnfg:#111113;--spot:rgba(255,255,255,.08);
+position:relative;color-scheme:light}
+.root.dark{--bg:#0B0B0D;--card:#161619;--inset:#202024;--soft:#222226;--text:#F4F4F5;--text2:#D4D4D8;--muted:#B4B4BB;--muted2:#9A9AA2;--faint:#3A3A41;--ink:#F4F4F5;--on-ink:#0B0B0D;--glass:rgba(11,11,13,.72);--shadow:rgba(0,0,0,.75);--accent-text:color-mix(in srgb,var(--accent) 55%,#FFFFFF);--focus:var(--accent-text);
+--feat-bg:#F2F2F0;--feat-fg:#111113;--feat-muted:#4A4A52;--feat-chip:#E2E2DE;--feat-chipfg:#2A2A30;--feat-media:#E4E4E0;--feat-mediafg:#5C5C63;--feat-btn:#111113;--feat-btnfg:#FFFFFF;--spot:rgba(0,0,0,.05);
+color-scheme:dark}
+.root a{color:var(--text)}
+
+@keyframes vtReveal{from{clip-path:circle(0px at var(--vx,50%) var(--vy,0px))}to{clip-path:circle(150vmax at var(--vx,50%) var(--vy,0px))}}
+html.vt-theme::view-transition-old(root){animation:none}
+html.vt-theme::view-transition-new(root){animation:vtReveal .75s cubic-bezier(.65,0,.35,1)}
+
+@keyframes rise{from{translate:0 105%}to{translate:none}}
+@keyframes blurIn{from{opacity:0;filter:blur(10px);translate:0 14px}to{opacity:1;filter:none;translate:none}}
+@keyframes ping{from{transform:scale(1);opacity:.55}to{transform:scale(2.8);opacity:0}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+@keyframes tilt{0%,100%{transform:rotate(0)}50%{transform:rotate(14deg)}}
+@keyframes heroOut{to{opacity:.15;scale:.94;translate:0 -40px;filter:blur(4px)}}
+@keyframes lit{from{color:var(--faint)}to{color:var(--text)}}
+@keyframes litA{from{color:var(--faint)}to{color:var(--accent-text)}}
+@keyframes zoomIn{from{scale:.88;opacity:.35;border-radius:56px}to{scale:1;opacity:1;border-radius:28px}}
+@keyframes blurUp{from{opacity:0;filter:blur(8px);translate:0 56px}to{opacity:1;filter:none;translate:none}}
+@keyframes marq{from{translate:0 0}to{translate:-50% 0}}
+@keyframes navGlass{from{background-color:transparent;box-shadow:0 0 0 transparent}to{background-color:var(--glass);box-shadow:0 8px 24px -18px var(--shadow)}}
+
+.nav{position:sticky;top:0;z-index:20;background-color:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}
+
+.skip{position:absolute;left:16px;top:-80px;z-index:50;background:var(--ink);color:var(--on-ink) !important;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:600;font-size:15px;transition:top .25s cubic-bezier(.2,.8,.2,1)}
+.skip:focus{top:12px}
+:where(a,button):focus-visible{outline:2.5px solid var(--focus);outline-offset:3px}
+.feat{--focus:var(--feat-fg)}
+.cta{--focus:#FFFFFF}
+
+.mask{display:block;overflow:hidden;padding-bottom:0.06em}
+.mask > span{display:block;animation:rise 1s cubic-bezier(.2,.8,.2,1) both}
+.mask.l2 > span{animation-delay:.12s}
+.fu{animation:blurIn .9s cubic-bezier(.2,.8,.2,1) both}
+.d1{animation-delay:.05s}.d2{animation-delay:.4s}.d3{animation-delay:.55s}.d4{animation-delay:.68s}.d5{animation-delay:.8s}
+
+.dot{position:relative;display:inline-block;width:8px;height:8px;border-radius:999px;background:currentColor}
+.dot::after{content:"";position:absolute;inset:0;border-radius:999px;background:currentColor;animation:ping 1.9s ease-out infinite}
+
+.nl{position:relative;color:var(--muted) !important;transition:color .3s}
+.nl::after{content:"";position:absolute;left:14px;right:14px;bottom:8px;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.nl:hover,.nl.on{color:var(--text) !important}
+.nl:hover::after,.nl.on::after{transform:scaleX(1)}
+
+.seg{display:inline-flex;background:var(--card);border-radius:999px;padding:2px;margin-left:8px}
+.segb{border:0;background:transparent;color:var(--muted);font-family:'Geist Mono',monospace;font-size:13px;font-weight:500;min-width:44px;min-height:40px;border-radius:999px;cursor:pointer;transition:background-color .3s,color .3s}
+.segb.on{background:var(--ink);color:var(--on-ink)}
+.iconb{width:44px;height:44px;border:0;border-radius:999px;background:var(--card);color:var(--text);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.iconb svg{transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.iconb:hover svg{transform:rotate(30deg)}
+
+.btn{transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px -12px var(--shadow)}
+.btn:active{transform:translateY(0) scale(.98)}
+.arr-bob{animation:bob 2.2s ease-in-out infinite}
+.arr-diag{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.btn:hover .arr-diag,.lk:hover .arr-diag{transform:translate(3px,-3px)}
+
+.lift{transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s}
+.lift:hover,.lift:focus-within{transform:translateY(-6px);box-shadow:0 22px 44px -22px var(--shadow)}
+.media{overflow:hidden}
+.media > div{transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.lift:hover .media > div,.feat:hover .media > div{transform:scale(1.04)}
+
+.feat{position:relative;overflow:hidden}
+.spot{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .45s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),var(--spot),transparent 65%)}
+.feat:hover .spot{opacity:1}
+.badge{display:inline-block;transform:rotate(-2deg);transition:transform .45s cubic-bezier(.3,1.7,.5,1)}
+.feat:hover .badge{transform:rotate(4deg) scale(1.06)}
+
+.chip{transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.chip:hover{transform:translateY(-2px)}
+.wave{display:inline-block;transform-origin:50% 90%;animation:tilt 2.6s ease-in-out infinite}
+
+.marq{display:flex;width:max-content;white-space:nowrap;animation:marq 38s linear infinite}
+.marq.rev{animation-direction:reverse;animation-duration:46s}
+.grp{display:flex;gap:0.6em;padding-right:0.6em}
+.marqs:hover .marq{animation-play-state:paused}
+
+.stmt{view-timeline-name:--stmt}
+
+@supports (animation-timeline: view()){
+.nav{animation:navGlass linear both;animation-timeline:scroll();animation-range:0 160px}
+.heroOut{animation:heroOut linear both;animation-timeline:view();animation-range:exit 0% exit 100%}
+.w{animation:lit linear both;animation-timeline:--stmt}
+.wa{animation:litA linear both;animation-timeline:--stmt}
+.zoom{animation:zoomIn linear both;animation-timeline:view();animation-range:entry 0% cover 38%}
+.up{animation:blurUp linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+}
+
+@media (prefers-reduced-motion: reduce){
+*,*::before,*::after{animation:none !important;transition:none !important}
+.dot::after{display:none}
+.wa{color:var(--accent-text)}
+}
+</style>
+</helmet>
+<div class="root {{theme}}" lang="{{htmlLang}}" style="--accent: {{accent}}; min-height: 100vh; background: var(--bg); color: var(--text); font-family: 'Inter Tight', system-ui, sans-serif; transition: background-color .4s, color .4s;">
+
+<a class="skip" href="#projetos" onClick="{{go}}">{{t.skip}}</a>
+
+<header class="nav">
+<div class="fu d1" style="max-width: 1280px; margin: 0 auto; padding: 10px clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+<a href="#topo" onClick="{{go}}" style="font-weight: 700; font-size: 17px; letter-spacing: -0.02em; text-decoration: none;">gabriel<span style="color: var(--accent-text)">.</span>dev</a>
+<nav aria-label="{{t.navLabel}}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px; font-size: 15px; font-weight: 500;">
+<a class="nl {{nav.projetos}}" href="#projetos" onClick="{{go}}" style="text-decoration: none; padding: 12px 14px;">{{t.navWork}}</a>
+<a class="nl {{nav.sobre}}" href="#sobre" onClick="{{go}}" style="text-decoration: none; padding: 12px 14px;">{{t.navAbout}}</a>
+<div class="seg" role="group" aria-label="{{t.langLabel}}">
+<button type="button" class="segb {{seg.pt}}" aria-pressed="{{isPt}}" onClick="{{setPt}}">PT</button>
+<button type="button" class="segb {{seg.en}}" aria-pressed="{{isEn}}" onClick="{{setEn}}">EN</button>
+</div>
+<button type="button" class="iconb" aria-label="{{t.themeLabel}}" onClick="{{toggleTheme}}" style="margin-left: 4px;">
+<sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+</sc-if>
+<sc-if value="{{isLight}}" hint-placeholder-val="{{ true }}">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+</sc-if>
+</button>
+<a class="btn" href="#contato" onClick="{{go}}" style="text-decoration: none; background: var(--ink); color: var(--on-ink); border-radius: 999px; padding: 10px 20px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; margin-left: 8px;">{{t.navTalk}}</a>
+</nav>
+</div>
+</header>
+
+<main>
+<div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px);">
+<section id="topo" style="padding: 88px 0 120px; display: flex; flex-direction: column; gap: 48px;">
+<div style="display: flex; flex-direction: column; gap: 28px;">
+<span class="fu d1" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; background: var(--card); border-radius: 999px; padding: 8px 16px; font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text2);"><span class="dot" aria-hidden="true" style="color: var(--accent-text)"></span>{{t.badge}}</span>
+<div class="heroOut" style="transform-origin: left center;">
+<h1 style="margin: 0; font-size: clamp(60px, 11.5vw, 168px); line-height: 0.88; letter-spacing: -0.055em; font-weight: 600;"><span class="mask"><span>Gabriel</span></span><span class="mask l2"><span>Vasconcelos</span></span></h1>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: stretch;">
+<div style="flex: 3 1 520px; display: flex; flex-direction: column; justify-content: space-between; gap: 32px;">
+<p class="fu d2" style="margin: 0; max-width: 640px; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.3; letter-spacing: -0.02em; color: var(--text2);">{{t.heroA}}<strong style="font-weight: 600; color: var(--text);">Flutter</strong>{{t.heroB}}<strong style="font-weight: 600; color: var(--text);">Kotlin</strong>{{t.heroC}}<strong style="font-weight: 600; color: var(--text);">Spring Boot</strong>{{t.heroD}}</p>
+<div class="fu d3" style="display: flex; flex-wrap: wrap; gap: 12px;">
+<a class="btn" href="#projetos" onClick="{{go}}" style="background: {{accent}}; color: #FFFFFF; border-radius: 999px; padding: 16px 26px; min-height: 56px; box-sizing: border-box; font-size: 16px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 10px;">{{t.ctaWork}}
+<svg class="arr-bob" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"></path></svg>
+</a>
+<a class="btn" href="/curriculo.pdf" target="_blank" rel="noopener" style="background: var(--card); border-radius: 999px; padding: 16px 26px; min-height: 56px; box-sizing: border-box; font-size: 16px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center;">{{t.ctaCv}}</a>
+</div>
+</div>
+<div style="flex: 2 1 340px; display: flex; flex-wrap: wrap; gap: 12px;">
+<div class="fu d4 lift" style="flex: 1 1 160px; background: var(--card); border-radius: 20px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; gap: 20px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--muted2); text-transform: uppercase;">{{t.now}}</span>
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 22px; font-weight: 600; letter-spacing: -0.02em;">Setter</span><span style="font-size: 14px; color: var(--muted2);">{{t.since}}</span></span>
+</div>
+<div class="fu d5 lift" style="flex: 1 1 160px; background: var(--card); border-radius: 20px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; gap: 20px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--muted2); text-transform: uppercase;">{{t.focus}}</span>
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 22px; font-weight: 600; letter-spacing: -0.02em;">Mobile + Back-end</span><span style="font-size: 14px; color: var(--muted2);">Flutter · Kotlin · Spring</span></span>
+</div>
+</div>
+</div>
+</section>
+</div>
+
+<section class="stmt" aria-label="{{t.stmtLabel}}" style="height: 1500px;">
+<div style="position: sticky; top: 0; height: 760px; display: flex; align-items: center; justify-content: center; padding: 0 clamp(16px, 4vw, 48px);">
+<p style="margin: 0; max-width: 1100px; font-size: clamp(34px, 4.6vw, 68px); line-height: 1.12; letter-spacing: -0.04em; font-weight: 600; text-align: center;"><sc-for list="{{words}}" as="word" hint-placeholder-count="18"><span class="{{word.cls}}" style="animation-range: contain {{word.s}}% contain {{word.e}}%">{{word.w}}</span></sc-for></p>
+</div>
+</section>
+
+<div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px);">
+<section id="projetos" style="display: flex; flex-direction: column; gap: 20px;">
+<div class="up" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--muted2); text-transform: uppercase;">{{t.workEyebrow}}</span>
+<h2 style="margin: 0; font-size: clamp(40px, 5vw, 64px); line-height: 1; letter-spacing: -0.045em; font-weight: 600;">{{t.workTitle}}</h2>
+</div>
+
+<article class="feat zoom" onMouseMove="{{onMove}}" style="background: var(--feat-bg); color: var(--feat-fg); border-radius: 28px; padding: 16px; display: flex; flex-wrap: wrap; gap: 16px; transition: background-color .4s, color .4s;">
+<div class="spot" aria-hidden="true"></div>
+<div style="flex: 1 1 380px; padding: clamp(16px, 3vw, 40px); display: flex; flex-direction: column; justify-content: space-between; gap: 32px; position: relative;">
+<div style="display: flex; flex-direction: column; gap: 18px;">
+<span class="badge" style="align-self: flex-start; background: {{accent}}; color: #FFFFFF; border-radius: 999px; padding: 6px 12px; font-family: 'Geist Mono', monospace; font-size: 12px;">{{t.featured}}</span>
+<h3 style="margin: 0; font-size: clamp(40px, 4.4vw, 60px); line-height: 0.95; letter-spacing: -0.045em; font-weight: 600;">Setter</h3>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; color: var(--feat-muted);">{{t.featDesc}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<span class="chip" style="background: var(--feat-chip); border-radius: 999px; padding: 6px 12px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--feat-chipfg);">Kotlin</span>
+<span class="chip" style="background: var(--feat-chip); border-radius: 999px; padding: 6px 12px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--feat-chipfg);">Jetpack Compose</span>
+<span class="chip" style="background: var(--feat-chip); border-radius: 999px; padding: 6px 12px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--feat-chipfg);">Room</span>
+<span class="chip" style="background: var(--feat-chip); border-radius: 999px; padding: 6px 12px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--feat-chipfg);">Hilt</span>
+</div>
+</div>
+<span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--feat-muted);"><svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>{{t.featStatus}}</span>
+</div>
+<div class="media" style="flex: 1.6 1 460px; min-height: 480px; border-radius: 18px; position: relative;">
+<div style="position: absolute; inset: 0; background: var(--feat-media); display: flex; align-items: center; justify-content: center; gap: 24px; padding: 40px 32px; box-sizing: border-box; overflow: hidden;">
+<img src="/_blob/3f0d8d0b70f4a4faa8e3f903e74386d9" alt="{{t.shotRun}}" style="display: block; height: 100%; max-height: 440px; aspect-ratio: 600 / 1298; object-fit: cover; border-radius: 26px; box-shadow: 0 30px 60px -30px rgba(0,0,0,.55); transform: translateY(-14px);">
+<img src="/_blob/4e689c8421803f9b7f644cb68d5b56b9" alt="{{t.shotProgress}}" style="display: block; height: 100%; max-height: 440px; aspect-ratio: 600 / 1298; object-fit: cover; border-radius: 26px; box-shadow: 0 30px 60px -30px rgba(0,0,0,.55); transform: translateY(14px);">
+</div>
+</div>
+</article>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+<sc-for list="{{t.projects}}" as="p" hint-placeholder-count="3">
+<article class="lift up" style="flex: 1 1 300px; background: var(--card); border-radius: 24px; padding: 12px; display: flex; flex-direction: column; animation-range: entry {{p.a}}% entry {{p.b}}%;">
+<div class="media" style="height: 200px; border-radius: 16px; position: relative;">
+<div style="position: absolute; inset: 0; background: var(--inset); display: flex; align-items: center; justify-content: center;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--muted2);">{{p.shot}}</span>
+</div>
+</div>
+<div style="padding: 20px 12px 12px; display: flex; flex-direction: column; gap: 10px; flex-grow: 1;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--muted2);">{{p.tag}}</span>
+<h3 style="margin: 0; font-size: 24px; letter-spacing: -0.03em; font-weight: 600;">{{p.name}}</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted);">{{p.desc}}</p>
+<div style="margin-top: auto; padding-top: 8px;">
+<sc-if value="{{p.hasLink}}" hint-placeholder-val="{{ true }}"><a class="lk" href="{{p.href}}" style="font-size: 15px; font-weight: 600; color: var(--accent-text); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; gap: 6px;">{{p.link}}
+<svg class="arr-diag" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"></path></svg></a></sc-if>
+<sc-if value="{{p.isPrivate}}" hint-placeholder-val="{{ false }}"><span style="min-height: 44px; display: inline-flex; align-items: center; gap: 8px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--muted2);"><svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>{{p.link}}</span></sc-if>
+</div>
+</div>
+</article>
+</sc-for>
+</div>
+</section>
+</div>
+
+<section class="marqs" aria-hidden="true" style="overflow: hidden; padding: 160px 0 40px; display: flex; flex-direction: column; gap: 8px; font-size: clamp(56px, 8vw, 124px); line-height: 1; letter-spacing: -0.045em; font-weight: 600;">
+<div class="marq"><div class="grp"><span>Flutter</span><span style="color: var(--faint)">·</span><span>Kotlin</span><span style="color: var(--faint)">·</span><span>Java</span><span style="color: var(--faint)">·</span><span>Dart</span><span style="color: var(--faint)">·</span></div><div class="grp"><span>Flutter</span><span style="color: var(--faint)">·</span><span>Kotlin</span><span style="color: var(--faint)">·</span><span>Java</span><span style="color: var(--faint)">·</span><span>Dart</span><span style="color: var(--faint)">·</span></div></div>
+<div class="marq rev" style="color: var(--faint);"><div class="grp"><span>Spring Boot</span><span>·</span><span>Jetpack Compose</span><span>·</span><span>React</span><span>·</span><span>TypeScript</span><span>·</span><span>MySQL</span><span>·</span><span>Docker</span><span>·</span><span>Firebase</span><span>·</span><span>Git</span><span>·</span></div><div class="grp"><span>Spring Boot</span><span>·</span><span>Jetpack Compose</span><span>·</span><span>React</span><span>·</span><span>TypeScript</span><span>·</span><span>MySQL</span><span>·</span><span>Docker</span><span>·</span><span>Firebase</span><span>·</span><span>Git</span><span>·</span></div></div>
+</section>
+
+<div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px) 48px;">
+<section id="sobre" style="padding-top: 120px; display: flex; flex-direction: column; gap: 20px;">
+<div class="up" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--muted2); text-transform: uppercase;">{{t.aboutEyebrow}}</span>
+<h2 style="margin: 0; font-size: clamp(40px, 5vw, 64px); line-height: 1; letter-spacing: -0.045em; font-weight: 600;">{{t.aboutTitle}}</h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+<div style="flex: 2 1 520px; display: flex; flex-direction: column; gap: 20px;">
+<div class="lift up" style="background: var(--card); border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 24px; font-weight: 600; letter-spacing: -0.02em;">{{t.job1Role}}</span><span style="font-size: 16px; color: var(--muted2);">{{t.job1Co}}</span></span>
+<span style="background: var(--soft); border-radius: 999px; padding: 6px 12px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--text2);">{{t.job1Date}}</span>
+</div>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: var(--muted);">{{t.job1Desc}}</p>
+</div>
+<div class="lift up" style="background: var(--card); border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;">
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 24px; font-weight: 600; letter-spacing: -0.02em;">{{t.job2Role}}</span><span style="font-size: 16px; color: var(--muted2);">{{t.job2Co}}</span></span>
+<span style="background: var(--soft); border-radius: 999px; padding: 6px 12px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--text2);">{{t.job2Date}}</span>
+</div>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: var(--muted);">{{t.job2Desc}}</p>
+</div>
+</div>
+<div class="up" style="flex: 1 1 320px; background: var(--card); border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 24px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--muted2); text-transform: uppercase;">{{t.daily}}</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<span class="chip" style="background: var(--ink); color: var(--on-ink); border-radius: 999px; padding: 8px 14px; font-size: 15px; font-weight: 500;">Flutter</span>
+<span class="chip" style="background: var(--ink); color: var(--on-ink); border-radius: 999px; padding: 8px 14px; font-size: 15px; font-weight: 500;">Dart</span>
+<span class="chip" style="background: var(--ink); color: var(--on-ink); border-radius: 999px; padding: 8px 14px; font-size: 15px; font-weight: 500;">Kotlin</span>
+<span class="chip" style="background: var(--ink); color: var(--on-ink); border-radius: 999px; padding: 8px 14px; font-size: 15px; font-weight: 500;">Java</span>
+</div>
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--muted2); text-transform: uppercase;">{{t.also}}</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<span class="chip" style="background: var(--soft); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: var(--text2);">Spring Boot</span>
+<span class="chip" style="background: var(--soft); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: var(--text2);">Jetpack Compose</span>
+<span class="chip" style="background: var(--soft); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: var(--text2);">React</span>
+<span class="chip" style="background: var(--soft); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: var(--text2);">TypeScript</span>
+<span class="chip" style="background: var(--soft); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: var(--text2);">MySQL</span>
+<span class="chip" style="background: var(--soft); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: var(--text2);">Docker</span>
+<span class="chip" style="background: var(--soft); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: var(--text2);">Firebase</span>
+<span class="chip" style="background: var(--soft); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: var(--text2);">JUnit</span>
+<span class="chip" style="background: var(--soft); border-radius: 999px; padding: 6px 12px; font-size: 14px; color: var(--text2);">Git</span>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+<div class="lift up" style="flex: 3 1 420px; background: var(--card); border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--muted2); text-transform: uppercase;">{{t.eduLabel}}</span>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px;">
+<span style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 24px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15;">{{t.eduCourse}}</span><span style="font-size: 16px; color: var(--muted2);">UMC</span></span>
+<span style="background: var(--soft); border-radius: 999px; padding: 6px 12px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--text2);">2024 — 2025</span>
+</div>
+</div>
+<div class="lift up" style="flex: 3 1 420px; background: var(--card); border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--muted2); text-transform: uppercase;">{{t.communityLabel}}</span>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px;">
+<span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 24px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15;">Flutterando</span><span style="font-size: 16px; color: var(--muted2);">{{t.communityRole}}</span></span>
+<span style="display: inline-flex; align-items: center; gap: 8px; background: var(--soft); border-radius: 999px; padding: 6px 12px; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--text2);"><span class="dot" aria-hidden="true" style="color: var(--accent-text)"></span>{{t.comDate}}</span>
+</div>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: var(--muted);">{{t.communityDesc}}</p>
+</div>
+<div class="up" style="flex: 1 1 240px; background: var(--card); border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 16px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--muted2); text-transform: uppercase;">{{t.langsLabel}}</span>
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 20px; font-weight: 600; letter-spacing: -0.02em;">{{t.langPt}}</span><span style="font-size: 15px; color: var(--muted2);">{{t.langPtLvl}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 20px; font-weight: 600; letter-spacing: -0.02em;">{{t.langEn}}</span><span style="font-size: 15px; color: var(--muted2);">{{t.langEnLvl}}</span></span>
+</div>
+</div>
+</section>
+
+<section id="contato" style="padding-top: 140px;">
+<div class="zoom cta" style="background: {{accent}}; color: #FFFFFF; border-radius: 32px; padding: clamp(32px, 6vw, 80px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 40px;">
+<div style="flex: 1 1 520px; display: flex; flex-direction: column; gap: 20px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 13px; text-transform: uppercase;">{{t.contactEyebrow}}</span>
+<h2 style="margin: 0; font-size: clamp(48px, 7vw, 104px); line-height: 0.92; letter-spacing: -0.05em; font-weight: 600;">{{t.contactTitle}}<span class="wave">?</span></h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px;">
+<a class="btn" href="mailto:fvgabriel18@gmail.com" style="background: #FFFFFF; color: #111113; border-radius: 999px; padding: 16px 24px; min-height: 56px; box-sizing: border-box; font-size: 16px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center;">fvgabriel18@gmail.com</a>
+<a class="btn" href="https://www.linkedin.com/in/gabrielfvdev" style="background: #111113; color: #FFFFFF; border-radius: 999px; padding: 16px 24px; min-height: 56px; box-sizing: border-box; font-size: 16px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">LinkedIn
+<svg class="arr-diag" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"></path></svg></a>
+<a class="btn" href="https://github.com/GabrielFVDev" style="background: #111113; color: #FFFFFF; border-radius: 999px; padding: 16px 24px; min-height: 56px; box-sizing: border-box; font-size: 16px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">GitHub
+<svg class="arr-diag" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"></path></svg></a>
+</div>
+</div>
+<p style="margin: 32px 0 0; font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--muted2);">© 2026 Gabriel Vasconcelos · São Paulo</p>
+</section>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#2544F5","options":["#2544F5","#E4381B","#6D28D9","#0F766E"]},"startTheme":{"editor":"enum","options":["claro","escuro","sistema"],"default":"claro"},"$preview":{"width":1440,"height":5400}}'>
+class Component extends DCLogic {
+dict() {
+return {
+pt: {
+skip: 'Pular para o conteúdo', navLabel: 'Principal', navWork: 'Projetos', navAbout: 'Sobre', navTalk: 'Fale comigo',
+langLabel: 'Idioma', themeDark: 'Ativar modo escuro', themeLight: 'Ativar modo claro',
+badge: 'Desenvolvedor Mobile · São Paulo',
+heroA: 'Construo apps com ', heroB: ' e ', heroC: ', e APIs com ', heroD: '. Staff voluntário na comunidade Flutterando.',
+ctaWork: 'Ver projetos', ctaCv: 'Currículo', now: 'Agora', since: 'app Android em desenvolvimento', focus: 'Foco',
+stmtLabel: 'Sobre meu jeito de trabalhar',
+statement: 'Gosto de apps que parecem *simples. Por trás deles, componentes bem pensados, código limpo e cuidado com cada *detalhe.',
+workEyebrow: 'Trabalho selecionado', workTitle: 'Projetos', featured: 'Em desenvolvimento',
+featDesc: 'App Android de treino: você cola o treino do WhatsApp ou do bloco de notas e ele vira um treino executável, com a demonstração de cada exercício. Tudo por regra fixa, sem IA.',
+featStatus: 'Android · código privado', shotRun: 'Tela do Setter durante o treino, com séries, carga e descanso', shotProgress: 'Tela do Setter com a evolução de carga de um exercício',
+projects: [
+{ name: 'FinanceFit', tag: 'Spring Boot · JWT · React', desc: 'API de finanças pessoais com autenticação JWT, testes com JUnit e Mockito e Docker, mais o front em React.', shot: '[Print — FinanceFit]', href: 'https://github.com/GabrielFVDev/financeFit-api', link: 'Ver código', hasLink: true, isPrivate: false, a: 0, b: 65 },
+{ name: 'Matchbook', tag: 'Spring Boot · MySQL · React', desc: 'Recomendação de livros que muda de estratégia conforme você aceita ou recusa as sugestões.', shot: '[Print — Matchbook]', href: 'https://github.com/GabrielFVDev/matchbook-api', link: 'Ver código', hasLink: true, isPrivate: false, a: 10, b: 80 },
+{ name: 'Hydrate', tag: 'Kotlin · Jetpack Compose', desc: 'App Android de hidratação com lembretes e reset diário em segundo plano.', shot: '[Print — Hydrate]', href: '', link: 'Código privado', hasLink: false, isPrivate: true, a: 20, b: 95 }
+],
+aboutEyebrow: 'Trajetória', aboutTitle: 'Experiência e formação',
+eduLabel: 'Formação', eduCourse: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
+communityLabel: 'Comunidade', communityRole: 'Staff voluntário', comDate: 'ago 2024 — atual',
+communityDesc: 'Apoio membros da comunidade e apresentei na edição 2024 do Flutterando Connect, em Santos (SP).',
+langsLabel: 'Idiomas', langPt: 'Português', langPtLvl: 'Nativo', langEn: 'Inglês', langEnLvl: 'Intermediário',
+job1Role: 'Desenvolvedor de Aplicativos Júnior (Flutter)', job1Co: 'Coflint OÜ · Freelance, remoto', job1Date: 'mai — ago 2026',
+job1Desc: 'Telas e fluxos do app Yolki.pet, de microlearning gamificado sobre longevidade de pets. Estabilizei o app em 2 dias para a demonstração do produto num evento e identifiquei falhas na pipeline de CI.',
+job2Role: 'Desenvolvedor Flutter Júnior', job2Co: 'nZest · Remoto', job2Date: '2024',
+job2Desc: 'Dois apps da empresa: um de streaming (PlayFlix) e um do setor financeiro. Refatorei módulos core em código legado, migrei a camada visual para o Design System com componentes reutilizáveis e l10n, e criei componentes acessíveis para pessoas com deficiência visual.',
+daily: 'Uso no dia a dia', also: 'Também trabalho com',
+contactEyebrow: 'Contato', contactTitle: 'Vamos construir algo juntos'
+},
+en: {
+skip: 'Skip to content', navLabel: 'Main', navWork: 'Work', navAbout: 'About', navTalk: 'Let’s talk',
+langLabel: 'Language', themeDark: 'Switch to dark mode', themeLight: 'Switch to light mode',
+badge: 'Mobile Developer · São Paulo, Brazil',
+heroA: 'I build apps with ', heroB: ' and ', heroC: ', and APIs with ', heroD: '. Volunteer staff at the Flutterando community.',
+ctaWork: 'See my work', ctaCv: 'Resume', now: 'Now', since: 'Android app in progress', focus: 'Focus',
+stmtLabel: 'How I work',
+statement: 'I like apps that feel *simple. Behind them: thoughtful components, clean code and care for every *detail.',
+workEyebrow: 'Selected work', workTitle: 'Work', featured: 'In development',
+featDesc: 'An Android workout app: paste your workout from WhatsApp or a notes app and it becomes a workout you can follow, with a demo of every exercise. Plain fixed rules, no AI.',
+featStatus: 'Android · private code', shotRun: 'Setter during a workout, with sets, load and rest timer', shotProgress: 'Setter showing the load progress for one exercise',
+projects: [
+{ name: 'FinanceFit', tag: 'Spring Boot · JWT · React', desc: 'Personal finance API with JWT authentication, JUnit and Mockito tests and Docker, plus a React front end.', shot: '[Screenshot — FinanceFit]', href: 'https://github.com/GabrielFVDev/financeFit-api', link: 'View code', hasLink: true, isPrivate: false, a: 0, b: 65 },
+{ name: 'Matchbook', tag: 'Spring Boot · MySQL · React', desc: 'Book recommendations that switch strategy as you accept or reject suggestions.', shot: '[Screenshot — Matchbook]', href: 'https://github.com/GabrielFVDev/matchbook-api', link: 'View code', hasLink: true, isPrivate: false, a: 10, b: 80 },
+{ name: 'Hydrate', tag: 'Kotlin · Jetpack Compose', desc: 'Android hydration app with reminders and a daily reset that runs in the background.', shot: '[Screenshot — Hydrate]', href: '', link: 'Private repo', hasLink: false, isPrivate: true, a: 20, b: 95 }
+],
+aboutEyebrow: 'Journey', aboutTitle: 'Experience & education',
+eduLabel: 'Education', eduCourse: 'Technologist Degree in Systems Analysis and Development',
+communityLabel: 'Community', communityRole: 'Volunteer staff', comDate: 'Aug 2024 — present',
+communityDesc: 'I support community members and spoke at Flutterando Connect 2024 in Santos, Brazil.',
+langsLabel: 'Languages', langPt: 'Portuguese', langPtLvl: 'Native', langEn: 'English', langEnLvl: 'Intermediate',
+job1Role: 'Junior App Developer (Flutter)', job1Co: 'Coflint OÜ · Freelance, remote', job1Date: 'May — Aug 2026',
+job1Desc: 'Screens and flows for Yolki.pet, a gamified microlearning app about pet longevity. Stabilized the app in 2 days for a product demo at an event and identified failures in the CI pipeline.',
+job2Role: 'Junior Flutter Developer', job2Co: 'nZest · Remote', job2Date: '2024',
+job2Desc: 'Two company apps: a streaming app (PlayFlix) and a fintech app. Refactored core modules in legacy code, moved the UI onto the Design System with reusable components and l10n, and built accessible components for people with visual impairments.',
+daily: 'Daily drivers', also: 'Also work with',
+contactEyebrow: 'Contact', contactTitle: 'Let’s build something together'
+}
+};
+}
+componentDidMount() {
+var self = this;
+var init = {};
+try {
+var st = window.localStorage;
+var th = st && st.getItem('gv-theme');
+var lg = st && st.getItem('gv-lang');
+if (th === 'dark' || th === 'light') init.theme = th;
+if (lg === 'pt' || lg === 'en') init.lang = lg;
+} catch (err) {}
+try {
+if (!init.theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) init.theme = 'dark';
+if (!init.lang && navigator.language && navigator.language.toLowerCase().indexOf('pt') !== 0) init.lang = 'en';
+} catch (err) {}
+var pref = this.props.startTheme ?? 'claro';
+if (pref === 'claro') init.theme = 'light';
+if (pref === 'escuro') init.theme = 'dark';
+if (init.theme || init.lang) this.setState(init);
+try {
+var els = ['projetos', 'sobre', 'contato'].map(function (id) { return document.getElementById(id); }).filter(Boolean);
+if (els.length && typeof IntersectionObserver !== 'undefined') {
+self._io = new IntersectionObserver(function (entries) {
+entries.forEach(function (en) { if (en.isIntersecting) self.setState({ active: en.target.id }); });
+}, { rootMargin: '-40% 0px -55% 0px' });
+els.forEach(function (el) { self._io.observe(el); });
+}
+} catch (err) {}
+this.applyDoc();
+}
+componentDidUpdate(prev) {
+if (prev && prev.startTheme !== this.props.startTheme) {
+var p = this.props.startTheme ?? 'claro';
+if (p === 'claro' || p === 'escuro') this.setState({ theme: p === 'escuro' ? 'dark' : 'light' });
+}
+this.applyDoc();
+}
+componentWillUnmount() {
+if (this._io) this._io.disconnect();
+if (this._stop) this._stop();
+}
+applyDoc() {
+try {
+var st = this.state || {};
+var dark = st.theme === 'dark';
+document.documentElement.lang = st.lang === 'en' ? 'en' : 'pt-BR';
+document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+document.body.style.background = dark ? '#0B0B0D' : '#F5F5F3';
+} catch (err) {}
+}
+remember(key, val) {
+try { window.localStorage.setItem(key, val); } catch (err) {}
+}
+withTransition(doc, cls, update) {
+var win = doc.defaultView || window;
+var reduce = win.matchMedia && win.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!doc.startViewTransition || reduce) { update(function () {}); return; }
+var root = doc.documentElement;
+if (cls) root.classList.add(cls);
+var done = function () { if (cls) root.classList.remove(cls); };
+var tr = doc.startViewTransition(function () { return new Promise(function (res) { update(res); }); });
+tr.finished.then(done, done);
+}
+toggleTheme(e) {
+var self = this;
+var next = ((this.state && this.state.theme) || 'light') === 'dark' ? 'light' : 'dark';
+var btn = e && e.currentTarget;
+var doc = (btn && btn.ownerDocument) || document;
+if (btn && btn.getBoundingClientRect) {
+var r = btn.getBoundingClientRect();
+doc.documentElement.style.setProperty('--vx', (r.left + r.width / 2) + 'px');
+doc.documentElement.style.setProperty('--vy', (r.top + r.height / 2) + 'px');
+}
+this.remember('gv-theme', next);
+this.withTransition(doc, 'vt-theme', function (res) { self.setState({ theme: next }, res); });
+}
+setLang(lang, e) {
+var self = this;
+if (((this.state && this.state.lang) || 'pt') === lang) return;
+var doc = (e && e.currentTarget && e.currentTarget.ownerDocument) || document;
+this.remember('gv-lang', lang);
+this.withTransition(doc, '', function (res) { self.setState({ lang: lang }, res); });
+}
+smoothTo(e) {
+var a = e && e.currentTarget;
+var href = a && a.getAttribute && a.getAttribute('href');
+if (!href || href.charAt(0) !== '#') return;
+var doc = a.ownerDocument || document;
+var id = href.slice(1);
+var target = doc.getElementById(id);
+if (!target) return;
+e.preventDefault();
+var win = doc.defaultView || window;
+var sc = target.parentElement;
+while (sc && sc !== doc.body && sc !== doc.documentElement) {
+var cs = win.getComputedStyle(sc);
+if (/(auto|scroll)/.test(cs.overflowY) && sc.scrollHeight > sc.clientHeight + 1) break;
+sc = sc.parentElement;
+}
+if (!sc || sc === doc.body || sc === doc.documentElement) sc = doc.scrollingElement || doc.documentElement;
+var isDoc = sc === doc.scrollingElement || sc === doc.documentElement;
+var top0 = isDoc ? 0 : sc.getBoundingClientRect().top;
+var start = sc.scrollTop;
+var end = id === 'topo' ? 0 : Math.max(0, target.getBoundingClientRect().top - top0 + start - 72);
+var dist = end - start;
+if (this._stop) this._stop();
+var focusTarget = function () {
+try {
+if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+target.focus({ preventScroll: true });
+} catch (err) {}
+};
+var reduce = win.matchMedia && win.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduce || Math.abs(dist) < 2) { sc.scrollTop = end; focusTarget(); return; }
+var dur = Math.min(1300, Math.max(550, 420 + Math.abs(dist) * 0.22));
+var ease = function (t) { return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2; };
+var t0 = null, raf = 0, stopped = false;
+var stop = function () {
+stopped = true;
+win.cancelAnimationFrame(raf);
+win.removeEventListener('wheel', stop);
+win.removeEventListener('touchstart', stop);
+};
+win.addEventListener('wheel', stop, { passive: true });
+win.addEventListener('touchstart', stop, { passive: true });
+this._stop = stop;
+var step = function (now) {
+if (stopped) return;
+if (t0 === null) t0 = now;
+var p = Math.min(1, (now - t0) / dur);
+sc.scrollTop = start + dist * ease(p);
+if (p < 1) { raf = win.requestAnimationFrame(step); } else { stop(); focusTarget(); }
+};
+raf = win.requestAnimationFrame(step);
+}
+renderVals() {
+var self = this;
+var st = this.state || {};
+var lang = st.lang === 'en' ? 'en' : 'pt';
+var dark = st.theme === 'dark';
+var active = st.active || '';
+var D = this.dict()[lang];
+var raw = D.statement.split(' ');
+var step = 72 / (raw.length - 1);
+var words = raw.map(function (w, i) {
+var acc = w.charAt(0) === '*';
+var s = 5 + i * step;
+return { w: (acc ? w.slice(1) : w) + ' ', cls: acc ? 'wa' : 'w', s: s.toFixed(1), e: (s + 8).toFixed(1) };
+});
+if (!this._goFn) this._goFn = this.smoothTo.bind(this);
+if (!this._themeFn) this._themeFn = this.toggleTheme.bind(this);
+if (!this._ptFn) this._ptFn = function (e) { self.setLang('pt', e); };
+if (!this._enFn) this._enFn = function (e) { self.setLang('en', e); };
+var t = Object.assign({}, D, { themeLabel: dark ? D.themeLight : D.themeDark });
+return {
+accent: this.props.accent ?? '#2544F5',
+theme: dark ? 'dark' : 'light',
+isDark: dark,
+isLight: !dark,
+htmlLang: lang === 'en' ? 'en' : 'pt-BR',
+isPt: lang === 'pt',
+isEn: lang === 'en',
+seg: { pt: lang === 'pt' ? 'on' : '', en: lang === 'en' ? 'on' : '' },
+nav: { projetos: active === 'projetos' ? 'on' : '', sobre: active === 'sobre' ? 'on' : '' },
+t: t,
+words: words,
+onMove: this.handleMove,
+go: this._goFn,
+toggleTheme: this._themeFn,
+setPt: this._ptFn,
+setEn: this._enFn
+};
+}
+handleMove(e) {
+var el = e.currentTarget;
+if (!el || !el.getBoundingClientRect) return;
+var r = el.getBoundingClientRect();
+el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+}
+}
+</script>
+</body>
+</html>

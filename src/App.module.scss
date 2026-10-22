@@ -1,0 +1,36 @@
+@use './styles/tokens' as *;
+@use './styles/mixins' as *;
+
+// "Pular para o conteúdo": aparece no primeiro Tab
+.skip {
+  position: absolute;
+  left: 16px;
+  top: -80px;
+  z-index: 50;
+  background: var(--ink);
+  color: var(--on-ink);
+  padding: 12px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: top 0.25s $ease;
+
+  &:focus {
+    top: 12px;
+
+    @include mobile {
+      top: 8px;
+    }
+  }
+}
+
+// Sobre + Contato dividem o mesmo container
+.closing {
+  @include container;
+  padding-bottom: 48px;
+
+  @include mobile {
+    padding: 0 $gutter-mobile;
+  }
+}

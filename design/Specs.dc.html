@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Especificação de interações</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#F5F5F3}
+a{color:#2544F5}a:hover{color:#1A33C4}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F5F3; color: #111113; font-family: 'Inter Tight', system-ui, sans-serif;">
+<div style="max-width: 1200px; margin: 0 auto; padding: 72px clamp(16px, 4vw, 48px) 96px; display: flex; flex-direction: column; gap: 96px;">
+
+<header style="display: flex; flex-direction: column; gap: 20px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #5C5C63; text-transform: uppercase;">Guia de implementação · D4</span>
+<h1 style="margin: 0; font-size: clamp(48px, 7vw, 96px); line-height: 0.92; letter-spacing: -0.05em; font-weight: 600;">Como o portfólio<br>se comporta</h1>
+<p style="margin: 0; max-width: 720px; font-size: 20px; line-height: 1.45; color: #2A2A30;">O que cada interação faz, quando dispara, quanto dura e com qual curva. Serve de referência para implementar no React sem precisar adivinhar nada.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
+<a href="#menu" style="background: #FFFFFF; border-radius: 999px; padding: 10px 16px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; font-size: 15px; font-weight: 500; text-decoration: none; color: #111113;">Menu hambúrguer</a>
+<a href="#entrada" style="background: #FFFFFF; border-radius: 999px; padding: 10px 16px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; font-size: 15px; font-weight: 500; text-decoration: none; color: #111113;">Entrada</a>
+<a href="#scroll" style="background: #FFFFFF; border-radius: 999px; padding: 10px 16px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; font-size: 15px; font-weight: 500; text-decoration: none; color: #111113;">Scroll</a>
+<a href="#hover" style="background: #FFFFFF; border-radius: 999px; padding: 10px 16px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; font-size: 15px; font-weight: 500; text-decoration: none; color: #111113;">Contínuas e hover</a>
+<a href="#sistema" style="background: #FFFFFF; border-radius: 999px; padding: 10px 16px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; font-size: 15px; font-weight: 500; text-decoration: none; color: #111113;">Navegação, tema e idioma</a>
+<a href="#tokens" style="background: #FFFFFF; border-radius: 999px; padding: 10px 16px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; font-size: 15px; font-weight: 500; text-decoration: none; color: #111113;">Tokens</a>
+<a href="#codigo" style="background: #111113; color: #FFFFFF; border-radius: 999px; padding: 10px 16px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center; font-size: 15px; font-weight: 500; text-decoration: none;">Para implementar</a>
+</div>
+</header>
+
+<section id="menu" style="display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #5C5C63; text-transform: uppercase;">01 · Celular</span>
+<h2 style="margin: 0; font-size: clamp(36px, 4.4vw, 56px); line-height: 1; letter-spacing: -0.045em; font-weight: 600;">Menu hambúrguer</h2>
+<p style="margin: 0; max-width: 680px; font-size: 17px; line-height: 1.55; color: #4A4A52;">No celular, os links do topo não cabem. O botão ☰ guarda a navegação, o idioma e as redes num painel de tela cheia.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+<div style="flex: 1 1 520px; background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: center;">
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+<div role="img" aria-label="Celular com o menu fechado" style="width: 220px; height: 440px; border-radius: 36px; background: #111113; padding: 8px; box-sizing: border-box; position: relative;">
+<div style="width: 100%; height: 100%; border-radius: 28px; background: #F5F5F3; overflow: hidden; display: flex; flex-direction: column;">
+<div style="height: 44px; padding: 0 12px; display: flex; align-items: center; gap: 6px;">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: -0.02em; margin-right: auto;">gabriel<span style="color: #2544F5">.</span>dev</span>
+<span style="width: 26px; height: 26px; border-radius: 999px; background: #FFFFFF; display: inline-flex; align-items: center; justify-content: center;"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#111113" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+<span style="width: 26px; height: 26px; border-radius: 999px; background: #FFFFFF; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;"><span style="width: 10px; height: 1.5px; background: #111113; border-radius: 2px;"></span><span style="width: 10px; height: 1.5px; background: #111113; border-radius: 2px;"></span></span>
+</div>
+<div style="padding: 16px 12px; display: flex; flex-direction: column; gap: 12px;">
+<span style="align-self: flex-start; background: #FFFFFF; border-radius: 999px; padding: 3px 8px; font-family: 'Geist Mono', monospace; font-size: 7px; color: #33333A;">● Front-End · São Paulo</span>
+<span style="font-size: 32px; line-height: 0.88; letter-spacing: -0.055em; font-weight: 600;">Gabriel<br>Vasconcelos</span>
+<span style="font-size: 10px; line-height: 1.35; color: #2A2A30;">Construo interfaces web com React e apps com Flutter.</span>
+<span style="height: 28px; border-radius: 999px; background: #2544F5; color: #FFFFFF; font-size: 9px; font-weight: 600; display: flex; align-items: center; justify-content: center;">Ver projetos</span>
+<span style="height: 28px; border-radius: 999px; background: #FFFFFF; font-size: 9px; font-weight: 500; display: flex; align-items: center; justify-content: center;">Currículo</span>
+</div>
+</div>
+<span aria-hidden="true" style="position: absolute; top: 4px; right: -6px; width: 24px; height: 24px; border-radius: 999px; background: #2544F5; color: #FFFFFF; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;">1</span>
+</div>
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #5C5C63;">Fechado</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px; color: #5C5C63;">
+<svg aria-hidden="true" width="40" height="16" viewBox="0 0 40 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h34M30 2l6 6-6 6"></path></svg>
+<span style="font-family: 'Geist Mono', monospace; font-size: 11px;">toque no ☰</span>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+<div role="img" aria-label="Celular com o menu aberto" style="width: 220px; height: 440px; border-radius: 36px; background: #111113; padding: 8px; box-sizing: border-box; position: relative;">
+<div style="width: 100%; height: 100%; border-radius: 28px; background: #ECECE9; overflow: hidden; display: flex; flex-direction: column;">
+<div style="height: 44px; padding: 0 12px; display: flex; align-items: center; gap: 6px; background: #F5F5F3;">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: -0.02em; margin-right: auto;">gabriel<span style="color: #2544F5">.</span>dev</span>
+<span style="width: 26px; height: 26px; border-radius: 999px; background: #FFFFFF; display: inline-flex; align-items: center; justify-content: center;"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#111113" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+<span style="width: 26px; height: 26px; border-radius: 999px; background: #FFFFFF; display: inline-flex; align-items: center; justify-content: center;"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#111113" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></span>
+</div>
+<div style="flex: 1 1 auto; padding: 18px 12px 12px; display: flex; flex-direction: column; justify-content: space-between;">
+<div style="display: flex; flex-direction: column; gap: 4px; font-size: 24px; font-weight: 600; letter-spacing: -0.04em;">
+<span>Projetos</span><span>Sobre</span><span>Contato</span><span style="color: #5C5C63;">Currículo</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 7px; color: #5C5C63;">IDIOMA</span>
+<span style="display: inline-flex; background: #FFFFFF; border-radius: 999px; padding: 2px; font-family: 'Geist Mono', monospace; font-size: 8px;"><span style="background: #111113; color: #FFFFFF; border-radius: 999px; padding: 4px 9px;">PT</span><span style="padding: 4px 9px; color: #4A4A52;">EN</span></span>
+</div>
+<div style="display: flex; gap: 6px;">
+<span style="flex: 1 1 0; height: 26px; border-radius: 999px; background: #111113; color: #FFFFFF; font-size: 9px; display: flex; align-items: center; justify-content: center;">GitHub</span>
+<span style="flex: 1 1 0; height: 26px; border-radius: 999px; background: #FFFFFF; font-size: 9px; display: flex; align-items: center; justify-content: center;">LinkedIn</span>
+</div>
+</div>
+</div>
+</div>
+<span aria-hidden="true" style="position: absolute; top: 4px; right: -6px; width: 24px; height: 24px; border-radius: 999px; background: #2544F5; color: #FFFFFF; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;">2</span>
+<span aria-hidden="true" style="position: absolute; top: 70px; left: -10px; width: 24px; height: 24px; border-radius: 999px; background: #2544F5; color: #FFFFFF; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;">4</span>
+<span aria-hidden="true" style="position: absolute; top: 46px; right: 40px; width: 24px; height: 24px; border-radius: 999px; background: #2544F5; color: #FFFFFF; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;">3</span>
+<span aria-hidden="true" style="position: absolute; bottom: 58px; left: -10px; width: 24px; height: 24px; border-radius: 999px; background: #2544F5; color: #FFFFFF; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;">5</span>
+<span aria-hidden="true" style="position: absolute; bottom: 20px; left: -10px; width: 24px; height: 24px; border-radius: 999px; background: #2544F5; color: #FFFFFF; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;">6</span>
+</div>
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #5C5C63;">Aberto</span>
+</div>
+</div>
+
+<div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 10px;">
+<sc-for list="{{burger}}" as="b" hint-placeholder-count="6">
+<div style="background: #FFFFFF; border-radius: 18px; padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start;">
+<span style="flex: 0 0 28px; height: 28px; border-radius: 999px; background: #2544F5; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center;">{{b.n}}</span>
+<span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em;">{{b.t}}</span><span style="font-size: 15px; line-height: 1.5; color: #4A4A52;">{{b.d}}</span></span>
+</div>
+</sc-for>
+<div style="background: #FFF4E5; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 6px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #8A4B00; text-transform: uppercase;">Adicionar na implementação</span>
+<span style="font-size: 15px; line-height: 1.5; color: #4A2A00;">Fechar com Esc e ao tocar fora do painel · travar a rolagem do fundo enquanto o painel está aberto · devolver o foco ao ☰ quando fechar.</span>
+</div>
+</div>
+</div>
+</section>
+
+<section id="entrada" style="display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #5C5C63; text-transform: uppercase;">02 · Ao carregar</span>
+<h2 style="margin: 0; font-size: clamp(36px, 4.4vw, 56px); line-height: 1; letter-spacing: -0.045em; font-weight: 600;">Animações de entrada</h2>
+<p style="margin: 0; max-width: 680px; font-size: 17px; line-height: 1.55; color: #4A4A52;">Rodam uma vez, em sequência, quando a página abre. Todas usam a mesma curva: <span style="font-family: 'Geist Mono', monospace; font-size: 15px;">cubic-bezier(.2, .8, .2, 1)</span>.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div style="display: flex; flex-wrap: wrap; gap: 6px 24px; padding: 0 20px; font-family: 'Geist Mono', monospace; font-size: 12px; color: #5C5C63; text-transform: uppercase;">
+<span style="flex: 1 1 180px;">Elemento</span><span style="flex: 2 1 300px;">O que acontece</span><span style="flex: 0 0 90px;">Duração</span><span style="flex: 0 0 90px;">Atraso</span>
+</div>
+<sc-for list="{{entrance}}" as="r" hint-placeholder-count="8">
+<div style="background: #FFFFFF; border-radius: 16px; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 6px 24px; align-items: baseline;">
+<span style="flex: 1 1 180px; font-size: 16px; font-weight: 600;">{{r.el}}</span>
+<span style="flex: 2 1 300px; font-size: 15px; color: #4A4A52;">{{r.what}}</span>
+<span style="flex: 0 0 90px; font-family: 'Geist Mono', monospace; font-size: 14px;">{{r.dur}}</span>
+<span style="flex: 0 0 90px; font-family: 'Geist Mono', monospace; font-size: 14px; color: #2544F5;">{{r.delay}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="scroll" style="display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #5C5C63; text-transform: uppercase;">03 · Ligadas à rolagem</span>
+<h2 style="margin: 0; font-size: clamp(36px, 4.4vw, 56px); line-height: 1; letter-spacing: -0.045em; font-weight: 600;">Animações no scroll</h2>
+<p style="margin: 0; max-width: 680px; font-size: 17px; line-height: 1.55; color: #4A4A52;">Não têm duração: andam junto com o dedo ou a roda do mouse. Se rolar para cima, voltam. Navegadores sem suporte (como o Firefox) mostram tudo pronto, sem animação.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 16px;">
+<sc-for list="{{scroll}}" as="s" hint-placeholder-count="6">
+<div style="background: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 12px;">
+<span style="font-size: 21px; font-weight: 600; letter-spacing: -0.02em;">{{s.t}}</span>
+<span style="font-size: 15px; line-height: 1.55; color: #4A4A52; flex-grow: 1;">{{s.d}}</span>
+<span style="align-self: flex-start; background: #F5F5F3; border-radius: 999px; padding: 6px 12px; font-family: 'Geist Mono', monospace; font-size: 12px; color: #33333A;">{{s.k}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="hover" style="display: flex; flex-wrap: wrap; gap: 20px;">
+<div style="flex: 1 1 440px; display: flex; flex-direction: column; gap: 20px;">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #5C5C63; text-transform: uppercase;">04 · Sempre rodando</span>
+<h2 style="margin: 0; font-size: clamp(32px, 3.6vw, 44px); line-height: 1; letter-spacing: -0.04em; font-weight: 600;">Animações contínuas</h2>
+</div>
+<sc-for list="{{continuous}}" as="c" hint-placeholder-count="4">
+<div style="background: #FFFFFF; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+<span style="font-size: 17px; font-weight: 600;">{{c.t}}</span>
+<span style="font-size: 15px; line-height: 1.5; color: #4A4A52;">{{c.d}}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex: 1 1 440px; display: flex; flex-direction: column; gap: 20px;">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #5C5C63; text-transform: uppercase;">05 · Mouse e toque</span>
+<h2 style="margin: 0; font-size: clamp(32px, 3.6vw, 44px); line-height: 1; letter-spacing: -0.04em; font-weight: 600;">Hover e toque</h2>
+</div>
+<sc-for list="{{hover}}" as="h" hint-placeholder-count="6">
+<div style="background: #FFFFFF; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+<span style="font-size: 17px; font-weight: 600;">{{h.t}}</span>
+<span style="font-size: 15px; line-height: 1.5; color: #4A4A52;">{{h.d}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="sistema" style="display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #5C5C63; text-transform: uppercase;">06 · Comportamento</span>
+<h2 style="margin: 0; font-size: clamp(36px, 4.4vw, 56px); line-height: 1; letter-spacing: -0.045em; font-weight: 600;">Navegação, tema e idioma</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 16px;">
+<sc-for list="{{system}}" as="g" hint-placeholder-count="4">
+<div style="background: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 16px;">
+<span style="font-size: 24px; font-weight: 600; letter-spacing: -0.02em;">{{g.t}}</span>
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5; color: #4A4A52;">
+<sc-for list="{{g.items}}" as="it" hint-placeholder-count="4"><li>{{it}}</li></sc-for>
+</ul>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="tokens" style="display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #5C5C63; text-transform: uppercase;">07 · Base visual</span>
+<h2 style="margin: 0; font-size: clamp(36px, 4.4vw, 56px); line-height: 1; letter-spacing: -0.045em; font-weight: 600;">Tokens</h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px;">
+<div style="flex: 2 1 560px; background: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; font-family: 'Geist Mono', monospace; font-size: 12px; color: #5C5C63; text-transform: uppercase; padding-bottom: 4px;">
+<span style="flex: 1 1 180px;">Cor</span><span style="flex: 1 1 140px;">Claro</span><span style="flex: 1 1 140px;">Escuro</span>
+</div>
+<sc-for list="{{colors}}" as="k" hint-placeholder-count="7">
+<div style="display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; background: #F5F5F3; border-radius: 14px; padding: 12px 14px;">
+<span style="flex: 1 1 180px; font-size: 15px; font-weight: 600;">{{k.name}}</span>
+<span style="flex: 1 1 140px; display: inline-flex; align-items: center; gap: 10px; font-family: 'Geist Mono', monospace; font-size: 13px;"><span style="width: 22px; height: 22px; border-radius: 7px; background: {{k.light}}; box-shadow: inset 0 0 0 1px rgba(17,17,19,.12);"></span>{{k.light}}</span>
+<span style="flex: 1 1 140px; display: inline-flex; align-items: center; gap: 10px; font-family: 'Geist Mono', monospace; font-size: 13px;"><span style="width: 22px; height: 22px; border-radius: 7px; background: {{k.dark}}; box-shadow: inset 0 0 0 1px rgba(17,17,19,.12);"></span>{{k.darkLabel}}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 16px;">
+<div style="background: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 14px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #5C5C63; text-transform: uppercase;">Fontes</span>
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 30px; font-weight: 600; letter-spacing: -0.04em;">Inter Tight</span><span style="font-size: 14px; color: #4A4A52;">400–700 · títulos e textos</span></span>
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-family: 'Geist Mono', monospace; font-size: 22px;">Geist Mono</span><span style="font-size: 14px; color: #4A4A52;">400–500 · rótulos, datas e tags</span></span>
+</div>
+<div style="background: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 10px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #5C5C63; text-transform: uppercase;">Curvas</span>
+<sc-for list="{{easings}}" as="e" hint-placeholder-count="4">
+<span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 600;">{{e.t}}</span><span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #4A4A52;">{{e.v}}</span></span>
+</sc-for>
+</div>
+<div style="background: #FFFFFF; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 10px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #5C5C63; text-transform: uppercase;">Cantos</span>
+<span style="font-size: 15px; line-height: 1.7; color: #2A2A30;">Pílulas 999px · Contato 32px · Destaque 28px · Cards 24px · Mini cards 20px</span>
+</div>
+</div>
+</div>
+</section>
+
+<section id="codigo" style="background: #111113; color: #FFFFFF; border-radius: 32px; padding: clamp(28px, 5vw, 64px); display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #A1A1AA; text-transform: uppercase;">08 · React + Vite</span>
+<h2 style="margin: 0; font-size: clamp(36px, 4.4vw, 56px); line-height: 1; letter-spacing: -0.045em; font-weight: 600;">Para implementar</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 12px;">
+<sc-for list="{{impl}}" as="m" hint-placeholder-count="6">
+<div style="background: #1E1E23; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 6px;">
+<span style="font-size: 17px; font-weight: 600;">{{m.t}}</span>
+<span style="font-size: 15px; line-height: 1.5; color: #C9C9CF;">{{m.d}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5600}}'>
+class Component extends DCLogic {
+renderVals() {
+return {
+burger: [
+{ n: '1', t: 'Botão ☰', d: 'Duas linhas num círculo de 44×44px, ao lado do botão de tema. Abre o painel.' },
+{ n: '2', t: 'Vira um X', d: 'As duas linhas giram ±45° e se cruzam em 350ms. Tocar de novo fecha o painel.' },
+{ n: '3', t: 'Painel em tela cheia', d: 'Cobre a tela abaixo do menu fixo (60px), com vidro fosco (desfoque de 24px). Aparece com fade de 300ms.' },
+{ n: '4', t: 'Links grandes', d: 'Entram em cascata (saem do desfoque e sobem), com 0, 100, 150 e 200ms de atraso. Tocar em um fecha o painel e rola até a seção ao mesmo tempo. “Currículo” só fecha e abre o PDF.' },
+{ n: '5', t: 'Idioma', d: 'Seletor PT | EN. A troca acontece na hora, com um crossfade suave.' },
+{ n: '6', t: 'Redes', d: 'GitHub e LinkedIn em botões de 52px de altura, fáceis de alcançar com o polegar.' }
+],
+entrance: [
+{ el: 'Menu fixo', what: 'Sai do desfoque e sobe 14px', dur: '900ms', delay: '50ms' },
+{ el: 'Selo “Front-End”', what: 'Sai do desfoque e sobe 14px', dur: '900ms', delay: '50ms' },
+{ el: 'Nome · linha 1', what: 'Sobe de trás de uma máscara', dur: '1000ms', delay: '0ms' },
+{ el: 'Nome · linha 2', what: 'Sobe de trás de uma máscara', dur: '1000ms', delay: '120ms' },
+{ el: 'Parágrafo', what: 'Sai do desfoque e sobe 14px', dur: '900ms', delay: '400ms' },
+{ el: 'Botões', what: 'Sai do desfoque e sobe 14px', dur: '900ms', delay: '550ms' },
+{ el: 'Card “Agora”', what: 'Sai do desfoque e sobe 14px', dur: '900ms', delay: '680ms' },
+{ el: 'Card “Foco”', what: 'Sai do desfoque e sobe 14px', dur: '900ms', delay: '800ms' }
+],
+scroll: [
+{ t: 'Menu de vidro', d: 'O menu fixo ganha fundo de vidro fosco e uma sombra suave nos primeiros 160px de rolagem.', k: 'scroll() · 0 → 160px' },
+{ t: 'O nome se despede', d: 'Quando sai da tela, o nome encolhe para 94%, desfoca 4px e fica com 15% de opacidade.', k: 'view() · exit 0 → 100%' },
+{ t: 'Frase que acende', d: 'A seção tem 1500px de altura (1200px no celular) e o texto fica parado no meio. Cada palavra vai do cinza à cor do texto; as marcadas com * vão para a cor de destaque.', k: 'sticky + view-timeline · 5 → 85%' },
+{ t: 'Projeto em destaque cresce', d: 'Entra com 88% do tamanho, cantos de 56px e 35% de opacidade. Chega a 100%, cantos de 28px e opaco.', k: 'view() · entry 0% → cover 38%' },
+{ t: 'Cards em cascata', d: 'Títulos e cards sobem 56px saindo de um desfoque de 8px. Os três projetos menores começam um depois do outro.', k: 'entry 0–65% · 10–80% · 20–95%' },
+{ t: 'Contato cresce', d: 'O bloco azul do final usa o mesmo crescimento do projeto em destaque.', k: 'view() · entry 0% → cover 38%' }
+],
+continuous: [
+{ t: 'Faixas de stack', d: 'Loop sem emenda: a linha 1 vai para a esquerda (38s), a linha 2 para a direita (46s). Pausam com o mouse em cima. No celular: 30s e 36s.' },
+{ t: 'Ponto de status', d: 'Um pulso que cresce e some, a cada 1,9s.' },
+{ t: 'Seta de “Ver projetos”', d: 'Balança 3px para baixo, a cada 2,2s, convidando a rolar.' },
+{ t: '“?” do contato', d: 'Inclina 14° e volta, a cada 2,6s.' }
+],
+hover: [
+{ t: 'Botões', d: 'Sobem 2px com sombra (220ms). No clique, encolhem para 98%.' },
+{ t: 'Cards', d: 'Sobem 6px com sombra difusa (400ms) e a imagem aproxima para 104% (900ms). Também acontece no foco do teclado.' },
+{ t: 'Projeto em destaque', d: 'Uma luz de 420px segue o mouse. O selo “Destaque” gira para 4° com um pequeno pulo.' },
+{ t: 'Setas ↗', d: 'Deslizam 3px na diagonal.' },
+{ t: 'Links do menu', d: 'Um sublinhado cresce da esquerda para a direita (300ms).' },
+{ t: 'Celular', d: 'Não existe hover: tudo que é clicável encolhe para 97% ao tocar.' }
+],
+system: [
+{ t: 'Navegação', items: ['Rolagem suave (easeInOutQuart), de 550 a 1300ms conforme a distância', 'Para 72px abaixo do topo, sem esconder o título (68px no celular)', 'Cancela se a pessoa rolar ou tocar no meio', 'O link da seção visível fica escuro e sublinhado', 'Ao chegar, o foco vai para a seção'] },
+{ t: 'Tema', items: ['Botão de sol/lua no menu', 'O novo tema se espalha num círculo a partir do botão (750ms)', 'Primeira visita: segue o sistema. Depois, lembra a escolha', 'No escuro, o projeto em destaque vira um card claro', 'O azul de texto fica mais claro para manter o contraste'] },
+{ t: 'Idioma', items: ['Seletor PT | EN', 'Crossfade de 250ms na troca', 'Primeira visita: segue o idioma do navegador. Depois, lembra a escolha', 'Atualiza o idioma da página para leitores de tela'] },
+{ t: 'Acessibilidade', items: ['Contorno de foco de 2,5px na cor de destaque, afastado 3px', '“Pular para o conteúdo” aparece no primeiro Tab', 'Com “reduzir movimento” ligado: nenhuma animação e a rolagem vira salto', 'Alvos de toque com 44px ou mais', 'Botões só com ícone têm descrição para leitores de tela'] }
+],
+colors: [
+{ name: 'Fundo', light: '#F5F5F3', dark: '#0B0B0D', darkLabel: '#0B0B0D' },
+{ name: 'Card', light: '#FFFFFF', dark: '#161619', darkLabel: '#161619' },
+{ name: 'Texto', light: '#111113', dark: '#F4F4F5', darkLabel: '#F4F4F5' },
+{ name: 'Texto secundário', light: '#4A4A52', dark: '#B4B4BB', darkLabel: '#B4B4BB' },
+{ name: 'Rótulos', light: '#5C5C63', dark: '#9A9AA2', darkLabel: '#9A9AA2' },
+{ name: 'Apagado (frase, faixa)', light: '#C4C4C8', dark: '#3A3A41', darkLabel: '#3A3A41' },
+{ name: 'Destaque', light: '#2544F5', dark: '#8798FA', darkLabel: '#8798FA (texto)' }
+],
+easings: [
+{ t: 'Padrão', v: 'cubic-bezier(.2, .8, .2, 1)' },
+{ t: 'Rolagem dos links', v: 'easeInOutQuart' },
+{ t: 'Troca de tema', v: 'cubic-bezier(.65, 0, .35, 1)' },
+{ t: 'Pulo do selo', v: 'cubic-bezier(.3, 1.7, .5, 1)' }
+],
+impl: [
+{ t: 'Tema', d: 'Atributo data-theme no html e as cores acima como variáveis CSS. Salvar a escolha no localStorage.' },
+{ t: 'Textos', d: 'Um dicionário pt/en num contexto React, do jeito que você já fez de i18n na NZest.' },
+{ t: 'Animações de scroll', d: 'CSS puro com animation-timeline, sem biblioteca. Envolver em @supports para o fallback.' },
+{ t: 'Troca de tema e idioma', d: 'document.startViewTransition, com troca direta quando o navegador não suporta.' },
+{ t: 'Rolagem e menu ativo', d: 'Um hook com requestAnimationFrame para a rolagem e IntersectionObserver para o link ativo.' },
+{ t: 'Referência pronta', d: 'Os arquivos Final.dc.html e Final-mobile.dc.html têm todo o CSS e a lógica para portar.' }
+]
+};
+}
+}
+</script>
+</body>
+</html>

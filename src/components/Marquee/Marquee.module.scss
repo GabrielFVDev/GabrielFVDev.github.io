@@ -1,0 +1,73 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+@keyframes marquee {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -50% 0;
+  }
+}
+
+.marquee {
+  overflow: hidden;
+  padding: 160px 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: clamp(56px, 8vw, 124px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+
+  @include mobile {
+    padding: 96px 0 24px;
+    gap: 4px;
+    font-size: 52px;
+    line-height: 1.02;
+  }
+}
+
+// Loop sem emenda: o conteúdo vem duplicado e anda metade da largura
+.track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  animation: marquee 38s linear infinite;
+
+  @include mobile {
+    animation-duration: 30s;
+  }
+
+  @include can-hover {
+    .marquee:hover & {
+      animation-play-state: paused;
+    }
+  }
+}
+
+.reverse {
+  color: var(--faint);
+  animation-direction: reverse;
+  animation-duration: 46s;
+
+  @include mobile {
+    animation-duration: 36s;
+  }
+}
+
+.group {
+  display: flex;
+  gap: 0.6em;
+  padding-right: 0.6em;
+
+  @include mobile {
+    gap: 0.5em;
+    padding-right: 0.5em;
+  }
+}
+
+.sep {
+  color: var(--faint);
+}

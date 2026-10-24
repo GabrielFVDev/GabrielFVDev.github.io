@@ -294,15 +294,11 @@
 // Sem animation-timeline (Firefox, Safari antes do 26): useRevealFallback põe esta classe
 // no <html> e leva --reveal de 0 a 1 pela rolagem. A animação fica pausada e o atraso
 // negativo a segura nesse ponto, com as mesmas keyframes de cima.
+// O nome vai no próprio atalho: sem ele, o minificador do build troca o atalho inteiro por "none".
 .reveal-fallback {
-  .zoom,
-  .up {
-    animation: 1s linear both paused;
-    animation-delay: calc(var(--reveal, 0) * -1s);
-  }
-
   .zoom {
-    animation-name: zoomIn;
+    animation: zoomIn 1s linear both paused;
+    animation-delay: calc(var(--reveal, 0) * -1s);
 
     @include mobile {
       animation-name: zoomInSm;
@@ -310,7 +306,8 @@
   }
 
   .up {
-    animation-name: blurUp;
+    animation: blurUp 1s linear both paused;
+    animation-delay: calc(var(--reveal, 0) * -1s);
 
     @include mobile {
       animation-name: blurUpSm;

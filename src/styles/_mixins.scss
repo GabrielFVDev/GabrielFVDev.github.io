@@ -43,8 +43,9 @@
   text-transform: uppercase;
 }
 
+// O conteúdo tem $container de largura; o respiro lateral fica por fora, como no design
 @mixin container {
-  max-width: $container;
+  max-width: calc(#{$container} + 2 * #{$gutter});
   margin: 0 auto;
   padding-inline: $gutter;
 }

@@ -185,13 +185,42 @@
   color: var(--feat-chipfg);
 }
 
-.status {
-  align-self: flex-start;
+// Etiqueta "código privado": mono, maiúsculas, presa no canto superior direito do card
+.seal {
+  position: absolute;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  @include mono(12px);
+  gap: 6px;
+  border-radius: 6px;
+  padding: 6px 9px;
+  @include mono(11px);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  @include mobile {
+    padding: 6px 8px;
+    font-size: 10.5px;
+
+    svg {
+      width: 11px;
+      height: 11px;
+    }
+  }
+}
+
+.featuredSeal {
+  top: 30px;
+  right: 30px;
+  background: var(--feat-bg);
   color: var(--feat-muted);
+
+  @include mobile {
+    top: 22px;
+    right: 22px;
+  }
 }
 
 .featuredMedia {
@@ -222,7 +251,7 @@
 
   @include mobile {
     align-items: flex-end;
-    padding: 24px 0 0;
+    padding: 52px 0 0;
   }
 }
 
@@ -263,12 +292,13 @@
   }
 }
 
-// ---------- Mais projetos ----------
+// ---------- Outros projetos ----------
 
 .moreHead {
-  display: none;
+  margin: 40px 0 4px;
 
   @include mobile {
+    margin: 0;
     padding: 12px $gutter-mobile 0;
     display: flex;
     justify-content: space-between;
@@ -277,17 +307,29 @@
 }
 
 .moreTitle {
-  font-size: 17px;
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
   font-weight: 600;
-  letter-spacing: -0.02em;
+
+  @include mobile {
+    font-size: 17px;
+    line-height: normal;
+    letter-spacing: -0.02em;
+  }
 }
 
+// "Deslize →" só faz sentido no trilho do celular
 .swipe {
-  @include mono(12px);
-  color: var(--muted2);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  display: none;
+
+  @include mobile {
+    @include mono(12px);
+    color: var(--muted2);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
 }
 
 .cards {
@@ -312,6 +354,7 @@
 }
 
 .card {
+  position: relative;
   flex: 1 1 300px;
   background: var(--card);
   border-radius: $radius-card;
@@ -338,18 +381,98 @@
   }
 }
 
-.placeholder {
+// Cada variante ocupa a área inteira (é ela que cresce no hover do card)
+.fill {
   position: absolute;
   inset: 0;
   background: var(--inset);
+  overflow: hidden;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+// Telas lado a lado, cortadas embaixo pela área do card
+.phones {
   display: flex;
-  align-items: center;
   justify-content: center;
-  @include mono(12px);
-  color: var(--muted2);
+  gap: 14px;
+  padding-top: 24px;
 
   @include mobile {
-    font-size: 11px;
+    gap: 12px;
+  }
+}
+
+.phone {
+  width: 132px;
+  height: auto;
+  align-self: flex-start;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 18px 40px -20px rgba(17, 17, 19, 0.45);
+
+  @include mobile {
+    width: 100px;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 14px 30px -16px rgba(17, 17, 19, 0.45);
+  }
+}
+
+.routes {
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  @include mobile {
+    padding: 18px;
+    gap: 12px;
+  }
+}
+
+.routesLabel {
+  @include eyebrow(11px);
+
+  @include mobile {
+    font-size: 10.5px;
+  }
+}
+
+// As rotas mais longas somem num degradê à direita em vez de quebrar a linha
+.routeList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  @include mono(12.5px);
+  line-height: 1.45;
+  white-space: pre;
+  color: var(--text2);
+  -webkit-mask-image: linear-gradient(to right, #000 82%, transparent);
+  mask-image: linear-gradient(to right, #000 82%, transparent);
+
+  @include mobile {
+    gap: 3px;
+    font-size: 11.5px;
+  }
+}
+
+.method {
+  color: var(--accent-text);
+}
+
+.cardSeal {
+  top: 24px;
+  right: 24px;
+  background: var(--card);
+  color: var(--text2);
+
+  @include mobile {
+    top: 20px;
+    right: 20px;
   }
 }
 
@@ -396,12 +519,46 @@
   }
 }
 
+// Rodapé alinhado à direita: repositórios ou "Em breve"
 .cardFooter {
   margin-top: auto;
   padding-top: 8px;
+  display: flex;
+  justify-content: flex-end;
 
   @include mobile {
     padding-top: 0;
+  }
+}
+
+.repos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0 16px;
+
+  @include mobile {
+    gap: 0 12px;
+  }
+}
+
+// "Ver no GitHub" é rótulo, não link: os links são API e Front
+.repoLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  color: var(--muted2);
+
+  @include mobile {
+    gap: 6px;
+    font-size: 13px;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
   }
 }
 
@@ -414,13 +571,32 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+
+  @include mobile {
+    gap: 5px;
+
+    svg {
+      width: 13px;
+      height: 13px;
+    }
+  }
 }
 
-.private {
+.soon {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  @include mono(12px);
-  color: var(--muted2);
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text2);
+
+  @include mobile {
+    gap: 9px;
+    font-size: 13px;
+  }
+}
+
+.dot {
+  color: var(--accent-text);
 }

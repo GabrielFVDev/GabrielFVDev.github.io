@@ -1,17 +1,8 @@
 @use '../../styles/tokens' as *;
 @use '../../styles/mixins' as *;
 
-@keyframes marquee {
-  from {
-    translate: 0 0;
-  }
-  to {
-    translate: -50% 0;
-  }
-}
-
 // O espaço em volta é margem, não padding: assim o hover (que pausa as faixas)
-// vale só em cima das letras, não no vazio acima delas.
+// e o arraste valem só em cima das letras, não no vazio acima delas.
 .marquee {
   overflow: hidden;
   margin: 160px 0 40px;
@@ -22,6 +13,19 @@
   line-height: 1;
   letter-spacing: -0.045em;
   font-weight: 600;
+  // Arrastar na horizontal é da faixa; rolar a página na vertical continua do navegador
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  @include can-hover {
+    cursor: grab;
+  }
+
+  &[data-dragging] {
+    cursor: grabbing;
+  }
 
   @include mobile {
     margin: 96px 0 24px;
@@ -31,32 +35,15 @@
   }
 }
 
-// Loop sem emenda: o conteúdo vem duplicado e anda metade da largura
+// A animação é criada em runMarquee.ts (Web Animations), para o arraste poder movê-la
 .track {
   display: flex;
   width: max-content;
   white-space: nowrap;
-  animation: marquee 38s linear infinite;
-
-  @include mobile {
-    animation-duration: 30s;
-  }
-
-  @include can-hover {
-    .marquee:hover & {
-      animation-play-state: paused;
-    }
-  }
 }
 
 .reverse {
   color: var(--faint);
-  animation-direction: reverse;
-  animation-duration: 46s;
-
-  @include mobile {
-    animation-duration: 36s;
-  }
 }
 
 .group {
@@ -72,4 +59,8 @@
 
 .sep {
   color: var(--faint);
+}
+
+.srOnly {
+  @include visually-hidden;
 }

@@ -15,6 +15,7 @@ export const pt = {
     about: 'Sobre',
     contact: 'Contato',
     talk: 'Fale comigo',
+    cv: 'Currículo',
     openMenu: 'Abrir menu',
     closeMenu: 'Fechar menu',
   },
@@ -35,19 +36,19 @@ export const pt = {
       short: '. Staff voluntário na Flutterando.',
     },
     ctaWork: 'Ver projetos',
-    ctaCv: 'Currículo',
+    ctaCv: 'Ver currículo',
     now: 'Agora',
     nowSub: 'app Android em desenvolvimento',
     focus: 'Foco',
   },
   statement: {
     label: 'Sobre meu jeito de trabalhar',
-    text: 'Gosto de apps que parecem *simples. Por trás deles, componentes bem pensados, código limpo e cuidado com cada *detalhe.',
+    text: 'Crio apps mobile com foco em experiência *simples, código organizado e cuidado em cada *detalhe.',
   },
   work: {
-    eyebrow: 'Trabalho selecionado',
+    eyebrow: 'Em destaque',
     title: 'Projetos',
-    more: 'Mais projetos',
+    more: 'Outros projetos',
     swipe: 'Deslize',
     featured: {
       badge: 'Em desenvolvimento',
@@ -60,12 +61,25 @@ export const pt = {
       shotRun: 'Tela do Setter durante o treino, com séries, carga e descanso',
       shotProgress: 'Tela do Setter com a evolução de carga de um exercício',
     },
-    codeLink: 'Ver código',
+    github: 'Ver no GitHub',
     privateCode: 'Código privado',
-    shot: 'Print',
+    soon: 'Em breve na Play Store',
+    apiRoutes: 'Rotas da API',
+    // Cada projeto tem dois repositórios; o aria-label diz de qual projeto é o link
+    repo: {
+      api: { label: 'API', aria: (name: string) => `API do ${name} no GitHub` },
+      front: { label: 'Front', aria: (name: string) => `Front do ${name} no GitHub` },
+    },
+    shots: {
+      matchbook: 'Tela inicial do Matchbook recomendando o livro Fundação, com os botões Amei e Próximo',
+      hydrateHome: 'Tela inicial do Hydrate com o anel de consumo do dia, 0 de 2,80 L',
+      hydrateReminders: 'Tela de lembretes do Hydrate, com horário de início e fim e intervalo de 30 minutos',
+    },
     projects: {
-      financefit:
-        'API de finanças pessoais com autenticação JWT, testes com JUnit e Mockito e Docker, mais o front em React.',
+      financefit: {
+        full: 'API de finanças pessoais com autenticação JWT, testes com JUnit e Mockito e Docker, mais o front em React.',
+        short: 'API de finanças pessoais com JWT, testes com JUnit e Mockito e Docker, mais o front em React.',
+      },
       matchbook:
         'Recomendação de livros que muda de estratégia conforme você aceita ou recusa as sugestões.',
       hydrate: 'App Android de hidratação com lembretes e reset diário em segundo plano.',
@@ -74,39 +88,51 @@ export const pt = {
   about: {
     eyebrow: 'Trajetória',
     title: 'Experiência e formação',
-    jobs: [
-      {
-        role: 'Desenvolvedor de Aplicativos Júnior (Flutter)',
-        company: 'Coflint OÜ · Freelance, remoto',
-        date: 'mai — ago 2026',
-        desc: {
-          full: 'Telas e fluxos do app Yolki.pet, de microlearning gamificado sobre longevidade de pets. Estabilizei o app em 2 dias para a demonstração do produto num evento e identifiquei falhas na pipeline de CI.',
-          short:
-            'Telas e fluxos do app Yolki.pet, de microlearning gamificado sobre longevidade de pets. Estabilizei o app em 2 dias para a demonstração num evento.',
+    exp: {
+      label: 'Experiência',
+      items: [
+        {
+          role: 'Desenvolvedor de Aplicativos Júnior (Flutter)',
+          company: 'Coflint OÜ · Freelance, remoto',
+          date: 'mai — ago 2026',
+          desc: {
+            full: 'Telas e fluxos do app Yolki.pet, de microlearning gamificado sobre longevidade de pets. Estabilizei o app em 2 dias para a demonstração do produto num evento e identifiquei falhas na pipeline de CI.',
+            short:
+              'Telas e fluxos do app Yolki.pet, de microlearning gamificado sobre longevidade de pets. Estabilizei o app em 2 dias para a demonstração num evento.',
+          },
         },
-      },
-      {
-        role: 'Desenvolvedor Flutter Júnior',
-        company: 'nZest · Remoto',
-        date: '2024',
-        desc: {
-          full: 'Dois apps da empresa: um de streaming (PlayFlix) e um do setor financeiro. Refatorei módulos core em código legado, migrei a camada visual para o Design System com componentes reutilizáveis e l10n, e criei componentes acessíveis para pessoas com deficiência visual.',
-          short:
-            'Dois apps da empresa, de streaming (PlayFlix) e financeiro. Refatorei módulos core legados, migrei a interface para o Design System com l10n e criei componentes acessíveis.',
+        {
+          role: 'Desenvolvedor Flutter Júnior',
+          company: 'nZest · Remoto',
+          date: '2024',
+          desc: {
+            full: 'Dois apps da empresa: um de streaming (PlayFlix) e um do setor financeiro. Refatorei módulos core em código legado, migrei a camada visual para o Design System com componentes reutilizáveis e l10n, e criei componentes acessíveis para pessoas com deficiência visual.',
+            short:
+              'Dois apps da empresa, de streaming (PlayFlix) e financeiro. Refatorei módulos core legados, migrei a interface para o Design System com l10n e criei componentes acessíveis.',
+          },
         },
-      },
-    ],
-    daily: 'Uso no dia a dia',
-    also: 'Também trabalho com',
+      ],
+    },
     edu: {
       label: 'Formação',
       course: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
     },
     community: {
       label: 'Comunidade',
-      role: 'Staff voluntário',
-      date: 'ago 2024 — atual',
-      desc: 'Apoio membros da comunidade e apresentei na edição 2024 do Flutterando Connect, em Santos (SP).',
+      items: [
+        {
+          name: 'Flutterando',
+          role: 'Staff voluntário',
+          date: 'ago 2024 — atual',
+          desc: 'Participo das decisões da comunidade e ajudei a realizar o Flutterando Connect 2024, em Santos (SP), onde também apresentei. Contribuí com o site do evento e com a documentação do routefly.',
+        },
+        {
+          name: 'He4rt Developers',
+          role: 'Contribuidor open-source',
+          date: 'mai 2026 — atual',
+          desc: 'Contribuo com o heartdevs.com, a plataforma open-source da comunidade: estrutura do módulo de eventos, check-in pelo bot e reações na timeline.',
+        },
+      ],
     },
     langs: {
       label: 'Idiomas',
@@ -116,9 +142,14 @@ export const pt = {
       ],
     },
   },
+  stack: {
+    label: 'Tecnologias com que trabalho',
+  },
   contact: {
     eyebrow: 'Contato',
-    title: 'Vamos construir algo juntos',
+    title: 'Seu time precisa de um dev mobile',
+    copy: 'Copiar o e-mail fvgabriel18@gmail.com',
+    copied: 'E-mail copiado',
   },
 }
 
@@ -136,6 +167,7 @@ export const en: Dict = {
     about: 'About',
     contact: 'Contact',
     talk: 'Let’s talk',
+    cv: 'Resume',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
   },
@@ -156,19 +188,19 @@ export const en: Dict = {
       short: '. Volunteer staff at Flutterando.',
     },
     ctaWork: 'See my work',
-    ctaCv: 'Resume',
+    ctaCv: 'View resume',
     now: 'Now',
     nowSub: 'Android app in progress',
     focus: 'Focus',
   },
   statement: {
     label: 'How I work',
-    text: 'I like apps that feel *simple. Behind them: thoughtful components, clean code and care for every *detail.',
+    text: 'I build mobile apps with a focus on *simple experiences, organized code and care for every *detail.',
   },
   work: {
-    eyebrow: 'Selected work',
+    eyebrow: 'Featured',
     title: 'Work',
-    more: 'More work',
+    more: 'Other work',
     swipe: 'Swipe',
     featured: {
       badge: 'In development',
@@ -181,12 +213,24 @@ export const en: Dict = {
       shotRun: 'Setter during a workout, with sets, load and rest timer',
       shotProgress: 'Setter showing the load progress for one exercise',
     },
-    codeLink: 'View code',
+    github: 'View on GitHub',
     privateCode: 'Private repo',
-    shot: 'Screenshot',
+    soon: 'Coming soon to Google Play',
+    apiRoutes: 'API routes',
+    repo: {
+      api: { label: 'API', aria: (name: string) => `${name} API on GitHub` },
+      front: { label: 'Front', aria: (name: string) => `${name} front end on GitHub` },
+    },
+    shots: {
+      matchbook: 'Matchbook home screen recommending the book Foundation, with the Love and Next buttons',
+      hydrateHome: 'Hydrate home screen with the daily intake ring, 0 of 2.80 L',
+      hydrateReminders: 'Hydrate reminder settings, with start and end hours and a 30-minute interval',
+    },
     projects: {
-      financefit:
-        'Personal finance API with JWT authentication, JUnit and Mockito tests and Docker, plus a React front end.',
+      financefit: {
+        full: 'Personal finance API with JWT authentication, JUnit and Mockito tests and Docker, plus a React front end.',
+        short: 'Personal finance API with JWT, JUnit and Mockito tests and Docker, plus a React front end.',
+      },
       matchbook: 'Book recommendations that switch strategy as you accept or reject suggestions.',
       hydrate: 'Android hydration app with reminders and a daily reset that runs in the background.',
     },
@@ -194,39 +238,51 @@ export const en: Dict = {
   about: {
     eyebrow: 'Journey',
     title: 'Experience & education',
-    jobs: [
-      {
-        role: 'Junior App Developer (Flutter)',
-        company: 'Coflint OÜ · Freelance, remote',
-        date: 'May — Aug 2026',
-        desc: {
-          full: 'Screens and flows for Yolki.pet, a gamified microlearning app about pet longevity. Stabilized the app in 2 days for a product demo at an event and identified failures in the CI pipeline.',
-          short:
-            'Screens and flows for Yolki.pet, a gamified microlearning app about pet longevity. Stabilized the app in 2 days for a demo at an event.',
+    exp: {
+      label: 'Experience',
+      items: [
+        {
+          role: 'Junior App Developer (Flutter)',
+          company: 'Coflint OÜ · Freelance, remote',
+          date: 'May — Aug 2026',
+          desc: {
+            full: 'Screens and flows for Yolki.pet, a gamified microlearning app about pet longevity. Stabilized the app in 2 days for a product demo at an event and identified failures in the CI pipeline.',
+            short:
+              'Screens and flows for Yolki.pet, a gamified microlearning app about pet longevity. Stabilized the app in 2 days for a demo at an event.',
+          },
         },
-      },
-      {
-        role: 'Junior Flutter Developer',
-        company: 'nZest · Remote',
-        date: '2024',
-        desc: {
-          full: 'Two company apps: a streaming app (PlayFlix) and a fintech app. Refactored core modules in legacy code, moved the UI onto the Design System with reusable components and l10n, and built accessible components for people with visual impairments.',
-          short:
-            'Two company apps, streaming (PlayFlix) and fintech. Refactored legacy core modules, moved the UI onto the Design System with l10n and built accessible components.',
+        {
+          role: 'Junior Flutter Developer',
+          company: 'nZest · Remote',
+          date: '2024',
+          desc: {
+            full: 'Two company apps: a streaming app (PlayFlix) and a fintech app. Refactored core modules in legacy code, moved the UI onto the Design System with reusable components and l10n, and built accessible components for people with visual impairments.',
+            short:
+              'Two company apps, streaming (PlayFlix) and fintech. Refactored legacy core modules, moved the UI onto the Design System with l10n and built accessible components.',
+          },
         },
-      },
-    ],
-    daily: 'Daily drivers',
-    also: 'Also work with',
+      ],
+    },
     edu: {
       label: 'Education',
       course: 'Technologist Degree in Systems Analysis and Development',
     },
     community: {
       label: 'Community',
-      role: 'Volunteer staff',
-      date: 'Aug 2024 — present',
-      desc: 'I support community members and spoke at Flutterando Connect 2024 in Santos, Brazil.',
+      items: [
+        {
+          name: 'Flutterando',
+          role: 'Volunteer staff',
+          date: 'Aug 2024 — present',
+          desc: 'I take part in the community’s decisions and helped put on Flutterando Connect 2024 in Santos, Brazil, where I also gave a talk. I contributed to the event website and to the routefly docs.',
+        },
+        {
+          name: 'He4rt Developers',
+          role: 'Open-source contributor',
+          date: 'May 2026 — present',
+          desc: 'I contribute to heartdevs.com, the community’s open-source platform: the events module structure, check-in through the bot and reactions on the timeline.',
+        },
+      ],
     },
     langs: {
       label: 'Languages',
@@ -236,9 +292,14 @@ export const en: Dict = {
       ],
     },
   },
+  stack: {
+    label: 'Technologies I work with',
+  },
   contact: {
     eyebrow: 'Contact',
-    title: 'Let’s build something together',
+    title: 'Does your team need a mobile dev',
+    copy: 'Copy the email fvgabriel18@gmail.com',
+    copied: 'Email copied',
   },
 }
 

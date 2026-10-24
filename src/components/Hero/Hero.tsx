@@ -3,7 +3,7 @@ import { useIsMobile } from '../../hooks/useMediaQuery'
 import { useLanguage } from '../../i18n/LanguageContext'
 import { cx } from '../../lib/cx'
 import { handleAnchorClick } from '../../lib/smoothScroll'
-import { ArrowDownIcon } from '../icons'
+import { ArrowDownIcon, ArrowUpRightIcon } from '../icons'
 import styles from './Hero.module.scss'
 
 export function Hero() {
@@ -49,6 +49,7 @@ export function Hero() {
               </a>
               <a className={cx(styles.cta, styles.ctaSecondary, 'btn tap')} href={links.cv} target="_blank" rel="noopener">
                 {t.hero.ctaCv}
+                <ArrowUpRightIcon className="arr-diag" />
               </a>
             </div>
           </div>

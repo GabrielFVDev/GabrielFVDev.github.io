@@ -3,6 +3,7 @@ import { links } from '../../content/site'
 import { useLanguage } from '../../i18n/LanguageContext'
 import { cx } from '../../lib/cx'
 import { handleAnchorClick } from '../../lib/smoothScroll'
+import { ArrowUpRightIcon, GitHubIcon, LinkedInIcon } from '../icons'
 import { LangSwitch } from './LangSwitch'
 import styles from './MobileMenu.module.scss'
 
@@ -76,7 +77,8 @@ export function MobileMenu({ id, closing, onClose, onClosed }: Props) {
           rel="noopener"
           onClick={() => onClose(false)}
         >
-          {t.hero.ctaCv}
+          {t.nav.cv}
+          <ArrowUpRightIcon size={30} strokeWidth={2.4} />
         </a>
       </nav>
       <div className={cx(styles.bottom, 'fu')} style={{ animationDelay: '0.25s' }}>
@@ -85,11 +87,15 @@ export function MobileMenu({ id, closing, onClose, onClosed }: Props) {
           <LangSwitch large />
         </div>
         <div className={styles.socials}>
-          <a className={cx(styles.social, styles.socialInk, 'tap')} href={links.github}>
+          <a className={cx(styles.social, 'tap')} href={links.github}>
+            <GitHubIcon />
             GitHub
+            <ArrowUpRightIcon className={styles.out} />
           </a>
           <a className={cx(styles.social, 'tap')} href={links.linkedin}>
+            <LinkedInIcon />
             LinkedIn
+            <ArrowUpRightIcon className={styles.out} />
           </a>
         </div>
       </div>

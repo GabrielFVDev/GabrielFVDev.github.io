@@ -48,3 +48,14 @@
   margin: 0 auto;
   padding-inline: $gutter;
 }
+
+// Fora da tela, mas lido pelo leitor de tela
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

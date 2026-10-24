@@ -85,6 +85,9 @@
 
 .cv {
   color: var(--muted2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .bottom {
@@ -108,20 +111,22 @@
   gap: 10px;
 }
 
+// Os dois iguais (um claro e outro escuro pareciam um seletor): marca à esquerda, ↗ à direita
 .social {
   flex: 1 1 0;
-  background: var(--card);
+  background: var(--ink);
+  color: var(--on-ink);
   border-radius: 999px;
   min-height: 52px;
+  padding: 0 18px;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 8px;
   font-size: 15px;
   font-weight: 500;
   text-decoration: none;
 }
 
-.socialInk {
-  background: var(--ink);
-  color: var(--on-ink);
+.out {
+  margin-left: auto;
 }

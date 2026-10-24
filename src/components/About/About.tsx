@@ -1,8 +1,45 @@
-import { stack } from '../../content/site'
+import type { ReactNode } from 'react'
 import { useIsMobile } from '../../hooks/useMediaQuery'
 import { useLanguage } from '../../i18n/LanguageContext'
 import { cx } from '../../lib/cx'
 import styles from './About.module.scss'
+
+// Um card por bloco: rótulo à esquerda no desktop, em cima no celular
+function Block({ label, className, children }: { label: string; className?: string; children: ReactNode }) {
+  return (
+    <div className={cx(styles.card, 'up')}>
+      <h3 className={styles.label}>{label}</h3>
+      <div className={cx(styles.content, className)}>{children}</div>
+    </div>
+  )
+}
+
+type EntryProps = {
+  title: string
+  subtitle: string
+  date: string
+  // Ainda em andamento: o ponto pulsa ao lado da data
+  current?: boolean
+  desc?: string
+}
+
+function Entry({ title, subtitle, date, current = false, desc }: EntryProps) {
+  return (
+    <div className={styles.entry}>
+      <div className={styles.entryHead}>
+        <span className={styles.heading}>
+          <span className={styles.title}>{title}</span>
+          <span className={styles.subtitle}>{subtitle}</span>
+        </span>
+        <span className={styles.pill}>
+          {current && <span className={cx(styles.dot, 'dot')} aria-hidden="true" />}
+          {date}
+        </span>
+      </div>
+      {desc && <p className={styles.desc}>{desc}</p>}
+    </div>
+  )
+}
 
 export function About() {
   const { t } = useLanguage()
@@ -13,83 +50,40 @@ export function About() {
     <section id="sobre" className={styles.section}>
       <div className={cx(styles.head, 'up')}>
         <span className={styles.eyebrow}>{about.eyebrow}</span>
-        <h2 className={styles.title}>{about.title}</h2>
+        <h2 className={styles.sectionTitle}>{about.title}</h2>
       </div>
 
-      <div className={styles.row}>
-        <div className={styles.jobs}>
-          {about.jobs.map((job) => (
-            <div key={job.company} className={cx(styles.card, 'lift up')}>
-              <div className={styles.cardHead}>
-                <span className={styles.heading}>
-                  <span className={styles.role}>{job.role}</span>
-                  <span className={styles.company}>{job.company}</span>
-                </span>
-                <span className={styles.pill}>{job.date}</span>
-              </div>
-              <p className={styles.desc}>{job.desc[isMobile ? 'short' : 'full']}</p>
-            </div>
+      <div className={styles.cards}>
+        <Block label={about.exp.label}>
+          {about.exp.items.map((job) => (
+            <Entry
+              key={job.company}
+              title={job.role}
+              subtitle={job.company}
+              date={job.date}
+              desc={job.desc[isMobile ? 'short' : 'full']}
+            />
           ))}
-        </div>
+        </Block>
 
-        <div className={cx(styles.card, styles.stack, 'up')}>
-          <span className={styles.cardLabel}>{about.daily}</span>
-          <div className={styles.chips}>
-            {stack.daily.map((item) => (
-              <span key={item} className={cx(styles.chipInk, 'chip')}>
-                {item}
-              </span>
-            ))}
-          </div>
-          <span className={styles.cardLabel}>{about.also}</span>
-          <div className={cx(styles.chips, styles.chipsLight)}>
-            {stack.also.map((item) => (
-              <span key={item} className={cx(styles.chipSoft, 'chip')}>
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
+        <Block label={about.edu.label}>
+          <Entry title={about.edu.course} subtitle="UMC" date="2024 — 2025" />
+        </Block>
 
-      <div className={styles.row}>
-        <div className={cx(styles.card, styles.wide, 'lift up')}>
-          <span className={styles.cardLabel}>{about.edu.label}</span>
-          <div className={cx(styles.cardHead, styles.cardHeadTop)}>
-            <span className={cx(styles.heading, styles.headingTight, styles.edu)}>
-              <span className={cx(styles.role, styles.course)}>{about.edu.course}</span>
-              <span className={styles.company}>UMC</span>
+        <Block label={about.langs.label} className={styles.langs}>
+          {about.langs.items.map((item) => (
+            <span key={item.name} className={styles.lang}>
+              <span className={styles.langName}>{item.name}</span>
+              <span className={styles.langLevel}>{item.level}</span>
             </span>
-            <span className={styles.pill}>2024 — 2025</span>
-          </div>
-        </div>
+          ))}
+        </Block>
 
-        <div className={cx(styles.card, styles.wide, 'lift up')}>
-          <span className={styles.cardLabel}>{about.community.label}</span>
-          <div className={cx(styles.cardHead, styles.cardHeadTop)}>
-            <span className={cx(styles.heading, styles.headingTight)}>
-              <span className={styles.role}>Flutterando</span>
-              <span className={styles.company}>{about.community.role}</span>
-            </span>
-            <span className={styles.pill}>
-              <span className={cx(styles.dot, 'dot')} aria-hidden="true" />
-              {about.community.date}
-            </span>
-          </div>
-          <p className={styles.desc}>{about.community.desc}</p>
-        </div>
-
-        <div className={cx(styles.card, styles.langs, 'up')}>
-          <span className={styles.cardLabel}>{about.langs.label}</span>
-          <div className={styles.langList}>
-            {about.langs.items.map((item) => (
-              <span key={item.name} className={styles.lang}>
-                <span className={styles.langName}>{item.name}</span>
-                <span className={styles.langLevel}>{item.level}</span>
-              </span>
-            ))}
-          </div>
-        </div>
+        <Block label={about.community.label}>
+          {about.community.items.map((item) => (
+            <Entry key={item.name} title={item.name} subtitle={item.role} date={item.date} current desc={item.desc} />
+          ))}
+        </Block>
       </div>
     </section>
   )

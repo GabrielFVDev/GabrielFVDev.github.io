@@ -21,8 +21,8 @@ export function Projects() {
 
         <FeaturedProject />
 
-        <div className={styles.moreHead}>
-          <span className={styles.moreTitle}>{t.work.more}</span>
+        <div className={cx(styles.moreHead, !isMobile && 'up')}>
+          <h3 className={styles.moreTitle}>{t.work.more}</h3>
           <span className={styles.swipe}>
             {t.work.swipe}
             <ArrowRightIcon />

@@ -42,11 +42,12 @@ export function FeaturedProject() {
               ))}
             </div>
           </div>
-          <span className={styles.status}>
-            <LockIcon />
-            {copy.status}
-          </span>
         </div>
+        {/* Etiqueta no canto superior direito, sobre a área das telas */}
+        <span className={cx(styles.seal, styles.featuredSeal)}>
+          <LockIcon size={12} strokeWidth={2.2} />
+          {copy.status}
+        </span>
         <div className={cx(styles.featuredMedia, 'media')}>
           <div className={styles.shots}>
             {shotList.map((shot) => (

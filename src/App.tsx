@@ -8,6 +8,7 @@ import { Projects } from './components/Projects/Projects'
 import { Statement } from './components/Statement/Statement'
 import { useActiveSection } from './hooks/useActiveSection'
 import { useMobileMenu } from './hooks/useMobileMenu'
+import { useRevealFallback } from './hooks/useRevealFallback'
 import { useLanguage } from './i18n/LanguageContext'
 import { handleAnchorClick } from './lib/smoothScroll'
 
@@ -17,6 +18,7 @@ export default function App() {
   const { t } = useLanguage()
   const menu = useMobileMenu()
   const activeSection = useActiveSection(SECTIONS)
+  useRevealFallback()
 
   return (
     <>

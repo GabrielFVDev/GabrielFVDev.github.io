@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import type { Project, ProjectMedia } from '../../content/site'
 import { useIsMobile } from '../../hooks/useMediaQuery'
 import { useLanguage } from '../../i18n/LanguageContext'
@@ -77,7 +78,7 @@ export function ProjectCard({ project, cascade }: Props) {
   return (
     <article
       className={cx(styles.card, 'lift', cascade && 'up', 'tap')}
-      style={cascade ? { animationRange: `entry ${from}% entry ${to}%` } : undefined}
+      style={cascade ? ({ '--range': `entry ${from}% entry ${to}%` } as CSSProperties) : undefined}
     >
       <div className={cx(styles.cardMedia, 'media')}>
         <Media media={project.media} />
